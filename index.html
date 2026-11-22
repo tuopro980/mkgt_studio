@@ -1269,10 +1269,10 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
           <label class="field"><span class="lbl">سرویس تولید</span>
             <select id="aiProvider">
               <option value="auto">انتخاب خودکار (پیشنهادی)</option>
-              <option value="puter">Puter AI — تصویر و متن</option>
+              <option value="pollinations">Pollinations — تصویر رایگان بدون کلید</option>
               <option value="custom">سرویس اختصاصی / API من</option>
             </select>
-            <small class="help" id="aiProviderHelp">انتخاب خودکار: Puter برای تصویر، متن، ویدئو و گفتار؛ Gateway برای موسیقی واقعی و سه‌بعدی.</small>
+            <small class="help" id="aiProviderHelp">تولید تصویر با Pollinations بدون کلید API؛ سایر خروجی‌ها به سرویس جداگانه نیاز دارند.</small>
           </label>
           <div id="aiCustomConfig" class="ai-custom-config" hidden>
             <label class="field"><span class="lbl">آدرس API یا Proxy</span><input id="aiEndpoint" type="url" placeholder="https://your-server.example/api/generate"></label>
@@ -1282,7 +1282,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
           <label class="field"><span class="lbl">تصویر مرجع (اختیاری)</span><input id="aiReference" type="file" accept="image/*,video/*"></label>
           <div id="aiReferenceName" class="ai-ref-name">هنوز فایلی انتخاب نشده</div>
           <button class="btn primary ai-generate" id="aiGenerateBtn"><span>✦</span> شروع تولید</button>
-          <div class="ai-note">Puter می‌تواند تصویر، متن، ویدئو و گفتار تولید کند. هر تولید واقعی ممکن است از اعتبار حساب Puter استفاده کند؛ حالت رایگان تضمین‌شده نیست. موسیقی واقعی و مدل سه‌بعدی به Gateway جداگانه نیاز دارند.</div>
+          <div class="ai-note">تصویر با سرویس رایگان Pollinations ساخته می‌شود؛ برای استفاده بدون کلید تضمین دائمی وجود ندارد و محدودیت درخواست دارد. برای جلوگیری از محدودیت، بین درخواست‌های جدید حداقل ۴۵ ثانیه فاصله بگذار.</div>
         </div>
 
         <div class="card ai-output-card">
@@ -1331,7 +1331,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
           <label class="field">
             <span class="lbl" data-i18n="provider">Provider</span>
             <select id="cfgProvider">
-              <option value="puter">Puter — sign in, no API key</option>
+              <option value="pollinations">Pollinations — رایگان بدون کلید</option>
               <option value="openai">OpenAI — images/edits</option>
               <option value="stability">Stability AI — SD3 image-to-image</option>
               <option value="custom">Custom JSON endpoint</option>
@@ -1405,7 +1405,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
       <div class="card">
         <div class="card-head"><h2 data-i18n="aboutTitle">About MKGT STUDIO</h2></div>
         <p style="color:var(--text-2);line-height:1.7;font-size:13.5px;" data-i18n="aboutBody">
-          MKGT STUDIO is a multi-output AI creative workspace. Image and text generation can use Puter where available; video, audio, and 3D outputs require a compatible external API or secure backend proxy.
+          MKGT STUDIO is a multi-output AI creative workspace. Image generation uses the public Pollinations legacy endpoint without an API key; video, audio, and 3D outputs require a compatible external API or secure backend proxy.
         </p>
         <div class="section-title">Version</div>
         <div class="preview-info"><span>Version</span><strong>2.0.0</strong></div>
@@ -1467,7 +1467,6 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
      ========================================================================= -->
 <div class="toast-stack" id="toastStack"></div>
 
-<script src="https://js.puter.com/v2/"></script>
 <script>
 "use strict";
 /* =========================================================================
@@ -1593,7 +1592,7 @@ const I18N = {
     save: "Save",
 
     aboutTitle: "About MKGT STUDIO",
-    aboutBody: "MKGT STUDIO is a multi-output AI creative workspace. Image and text generation can use Puter where available; video, audio, and 3D outputs require a compatible external API or secure backend proxy.",
+    aboutBody: "MKGT STUDIO is a multi-output AI creative workspace. Image generation uses the public Pollinations legacy endpoint without an API key; video, audio, and 3D outputs require a compatible external API or secure backend proxy.",
 
     editorTitle: "Image editor",
     zoom: "Zoom",
@@ -1809,7 +1808,7 @@ const OPTIONS = {
 const COUNT_OPTIONS = [1, 2, 3, 4];
 
 const PROVIDER_DEFAULTS = {
-  puter:     { endpoint: "", model: "gpt-image-2.6-flare" },
+  pollinations: { endpoint: "https://image.pollinations.ai/prompt/", model: "flux" },
   openai:    { endpoint: "https://api.openai.com/v1/images/edits", model: "gpt-image-1" },
   stability: { endpoint: "https://api.stability.ai/v2beta/stable-image/generate/sd3", model: "sd3.5-large" },
   custom:    { endpoint: "", model: "" }
@@ -1887,10 +1886,10 @@ const state = {
     styleStrength: 0.7
   },
   config: {
-    provider: "puter",
-    endpoint: PROVIDER_DEFAULTS.puter.endpoint,
+    provider: "pollinations",
+    endpoint: PROVIDER_DEFAULTS.pollinations.endpoint,
     key: "",
-    model: PROVIDER_DEFAULTS.puter.model,
+    model: PROVIDER_DEFAULTS.pollinations.model,
     timeout: 180,
     rememberKey: false,
     theme: "dark"
@@ -2458,58 +2457,48 @@ async function buildProviderRequest(referenceCanvas, prompt, negative, settings,
  * Returns an array of image URLs (data URLs or remote URLs).
  */
 async function callProvider(referenceCanvas, prompt, negative, settings, signal) {
-  if (state.config.provider === "puter") {
-    if (!window.puter || !window.puter.ai || typeof window.puter.ai.txt2img !== "function") {
-      throw new Error("Puter.js did not load. Check your internet connection and reopen this HTML file.");
-    }
+  if (state.config.provider === "pollinations") {
     if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
-    const refBlob = await canvasToBlob(referenceCanvas, "image/png");
-    const fullPrompt = prompt + (negative ? "\n\nAvoid: " + negative : "");
+    const palette = [];
     try {
-      const generated = await window.puter.ai.txt2img(fullPrompt, {
-        model: state.config.model || "gpt-image-2.6-flare",
-        input_image: refBlob,
-        aspect_ratio: "1:1",
-        quality: "low"
+      const ctx = referenceCanvas.getContext("2d", {willReadFrequently:true});
+      const w = referenceCanvas.width, h = referenceCanvas.height;
+      const data = ctx.getImageData(0, 0, w, h).data;
+      const counts = new Map();
+      const step = Math.max(4, Math.floor((w*h)/5000));
+      for (let i = 0; i < w*h; i += step) {
+        const p = i*4, a = data[p+3];
+        if (a < 100) continue;
+        const key = [data[p]>>4, data[p+1]>>4, data[p+2]>>4].join(",");
+        counts.set(key, (counts.get(key)||0)+1);
+      }
+      [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([k]) => {
+        const rgb = k.split(",").map(v=>Math.min(255,Number(v)*16+8));
+        palette.push("#"+rgb.map(v=>v.toString(16).padStart(2,"0")).join(""));
       });
-      if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
-
-      // Puter may return an image element, a URL, or a Blob depending on SDK/runtime.
-      let imageSrc = "";
-      if (typeof generated === "string") imageSrc = generated;
-      else if (generated instanceof Blob) imageSrc = await blobToDataURL(generated);
-      else if (generated && generated.src) imageSrc = generated.src;
-      else if (generated && generated.currentSrc) imageSrc = generated.currentSrc;
-      else if (generated && generated.data instanceof Blob) imageSrc = await blobToDataURL(generated.data);
-      if (!imageSrc) {
-        let detail = "";
-        try { detail = JSON.stringify(generated).slice(0, 500); } catch (_) {}
-        throw new Error("Puter returned an unsupported image result" + (detail ? ": " + detail : "."));
-      }
-      return [imageSrc];
-    } catch (err) {
-      if (err && err.name === "AbortError") throw err;
-      let detail = "";
-      if (err && typeof err === "object") {
-        const parts = [];
-        ["message", "code", "name", "status", "statusCode", "error", "hint", "details"].forEach(k => {
-          const v = err[k];
-          if (v !== undefined && v !== null && typeof v !== "object" && String(v)) {
-            parts.push(k + ": " + String(v));
-          } else if (v && typeof v === "object") {
-            try { parts.push(k + ": " + JSON.stringify(v)); } catch (_) {}
-          }
-        });
-        try {
-          const raw = JSON.stringify(err);
-          if (raw && raw !== "{}") parts.push("details: " + raw.slice(0, 1200));
-        } catch (_) {}
-        detail = Array.from(new Set(parts)).join(" | ");
-      } else {
-        detail = String(err || "Unknown error");
-      }
-      throw new Error("Puter: " + (detail || "Unknown error. Please retry."));
-    }
+    } catch (_) {}
+    const fullPrompt = [
+      prompt,
+      palette.length ? "Use a color palette inspired by the uploaded reference skin: " + palette.join(", ") + "." : "",
+      negative ? "Avoid: " + negative : "",
+      "high quality detailed illustration"
+    ].filter(Boolean).join(", ");
+    const ratio = (settings && settings.ratio) || "1:1";
+    const dims = ratio === "16:9" ? [768,432] : ratio === "9:16" ? [432,768] :
+                 ratio === "4:5" ? [512,640] : [512,512];
+    const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(fullPrompt) +
+      "?width=" + dims[0] + "&height=" + dims[1] +
+      "&model=flux&nologo=true&seed=" + Math.floor(Math.random()*1000000000);
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    await new Promise((resolve,reject) => {
+      const timeout = setTimeout(() => reject(new Error("زمان پاسخ سرویس تمام شد. دوباره تلاش کن.")), 90000);
+      img.onload = () => { clearTimeout(timeout); resolve(); };
+      img.onerror = () => { clearTimeout(timeout); reject(new Error("سرویس رایگان تصویر پاسخ نداد یا محدودیت موقت دارد. حداقل ۴۵ ثانیه صبر کن و دوباره تلاش کن.")); };
+      img.src = url;
+    });
+    if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
+    return [url];
   }
 
   const req = await buildProviderRequest(referenceCanvas, prompt, negative, settings, signal);
@@ -2609,9 +2598,7 @@ function showGenAlert(type, message) {
 }
 
 function isConfigured() {
-  if (state.config.provider === "puter") {
-    return !!(window.puter && window.puter.ai && typeof window.puter.ai.txt2img === "function");
-  }
+  if (state.config.provider === "pollinations") return true;
   return !!(state.config.endpoint && state.config.endpoint.trim() && state.config.key && state.config.key.trim());
 }
 
@@ -3020,9 +3007,9 @@ function fillSettingsForm() {
   if (r) r.checked = !!state.config.rememberKey;
   if (lang) lang.value = state.lang;
   if (theme) theme.value = state.config.theme || "dark";
-  const puterMode = state.config.provider === "puter";
-  if (e && e.parentElement) e.parentElement.hidden = puterMode;
-  if (k && k.parentElement) k.parentElement.hidden = puterMode;
+  const keylessMode = state.config.provider === "pollinations";
+  if (e && e.parentElement) e.parentElement.hidden = keylessMode;
+  if (k && k.parentElement) k.parentElement.hidden = keylessMode;
 
   refreshProviderSummary();
 }
@@ -3031,15 +3018,15 @@ function refreshProviderSummary() {
   const el = $("#providerSummary");
   if (!el) return;
   if (isConfigured()) {
-    const providerLabel = state.config.provider === "puter" ? "Puter"
+    const providerLabel = state.config.provider === "pollinations" ? "Pollinations"
       : state.config.provider === "openai" ? "OpenAI"
       : state.config.provider === "stability" ? "Stability AI"
       : "Custom";
     el.innerHTML =
       '<div class="status" style="margin-bottom:6px;"><span class="dot"></span>' +
       '<span>' + escapeHtml(providerLabel) + " — " + escapeHtml(state.config.model || "default model") + "</span></div>" +
-      (state.config.provider === "puter"
-        ? '<div style="font-size:11.5px;color:var(--muted-2);">Sign in to Puter when you generate. No API key or endpoint required.</div>'
+      (state.config.provider === "pollinations"
+        ? '<div style="font-size:11.5px;color:var(--muted-2);">No API key or account required. Public free endpoint; rate limits may apply.</div>'
         : '<div style="font-family:var(--font-mono);font-size:11px;word-break:break-all;color:var(--muted-2);">' + escapeHtml(state.config.endpoint) + "</div>");
   } else {
     el.innerHTML =
@@ -3066,8 +3053,8 @@ function saveSettings() {
 
   if (p) state.config.provider = p.value;
   if (m) state.config.model = m.value.trim();
-  if (state.config.provider === "puter") {
-    state.config.endpoint = "";
+  if (state.config.provider === "pollinations") {
+    state.config.endpoint = PROVIDER_DEFAULTS.pollinations.endpoint;
     state.config.key = "";
     state.config.rememberKey = false;
   } else {
@@ -3357,7 +3344,7 @@ function aiTypeChanged() {
   if (imageOpts) imageOpts.hidden = type !== "image";
   if (videoOpts) videoOpts.hidden = type !== "video";
   const help = $("#aiProviderHelp");
-  if (help) help.textContent = type === "image" ? "انتخاب خودکار از Puter برای تولید تصویر استفاده می‌کند؛ می‌توانی Gateway اختصاصی هم وصل کنی." : type === "text" || type === "code" ? "انتخاب خودکار از Puter برای متن و کدنویسی استفاده می‌کند." : "برای این نوع خروجی، انتخاب خودکار از Puter استفاده می‌کند؛ برای موسیقی واقعی یا سه‌بعدی Gateway اختصاصی لازم است.";
+  if (help) help.textContent = type === "image" ? "انتخاب خودکار از Pollinations برای تولید تصویر استفاده می‌کند؛ می‌توانی Gateway اختصاصی هم وصل کنی." : type === "text" || type === "code" ? "در حالت رایگان فقط تولید تصویر فعال است." : "در حالت رایگان فقط تولید تصویر فعال است؛ برای این خروجی Gateway جداگانه لازم است.";
   aiProviderChanged();
 }
 function aiProviderChanged() {
@@ -3384,6 +3371,37 @@ function aiShowText(text, asCode) {
   aiCurrentOutput = {kind:"text",text};
   $("#aiOutputActions").hidden = false;
   $("#aiDownloadBtn").hidden = false; $("#aiCopyBtn").hidden = false;
+}
+async function aiGenerateWithPollinations(prompt) {
+  const ratio = $("#aiRatio")?.value || "1:1";
+  const dims = ratio === "16:9" ? [768,432] : ratio === "9:16" ? [432,768] :
+               ratio === "4:5" ? [512,640] : [512,512];
+  const seed = Math.floor(Math.random()*1000000000);
+  const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(prompt) +
+    "?width=" + dims[0] + "&height=" + dims[1] +
+    "&model=flux&nologo=true&seed=" + seed;
+  const img = new Image();
+  img.referrerPolicy = "no-referrer";
+  await new Promise((resolve,reject) => {
+    const timeout = setTimeout(()=>reject(new Error("سرویس تصویر در زمان مقرر پاسخ نداد. دوباره تلاش کن.")),90000);
+    img.onload=()=>{clearTimeout(timeout);resolve();};
+    img.onerror=()=>{clearTimeout(timeout);reject(new Error("سرویس رایگان موقتاً در دسترس نیست یا محدودیت درخواست دارد. ۴۵ تا ۶۰ ثانیه صبر کن و دوباره تلاش کن."));};
+    img.src=url;
+  });
+  const out = $("#aiOutput");
+  out.innerHTML = "";
+  const node = document.createElement("img");
+  node.alt = "AI generated image";
+  node.src = url;
+  node.style.maxWidth = "100%";
+  node.style.maxHeight = "600px";
+  node.style.borderRadius = "10px";
+  out.appendChild(node);
+  aiCurrentOutput = {kind:"image", src:url};
+  $("#aiOutputActions").hidden = false;
+  $("#aiDownloadBtn").hidden = false;
+  $("#aiCopyBtn").hidden = true;
+  return "تصویر تولید شد.";
 }
 async function aiGenerateWithPuter(type, prompt) {
   if (!window.puter || !window.puter.ai) {
@@ -3532,9 +3550,11 @@ async function runAiStudio() {
   btn.disabled = true; btn.textContent = "در حال تولید..."; aiSetStatus("در حال ارسال درخواست به سرویس هوش مصنوعی...","WORKING");
   $("#aiOutput").innerHTML = '<div class="ai-empty"><div class="loader-emblem">MK</div><strong>در حال ساخت خروجی...</strong><span>ممکن است چند لحظه طول بکشد.</span></div>';
   try {
-    const puterSupported = ["image","text","code","video","music"].includes(type);
-    const useGateway = provider === "custom" || (provider === "auto" && !puterSupported);
-    const message = useGateway ? await aiGenerateCustom(type,prompt) : await aiGenerateWithPuter(type,prompt);
+    const useGateway = provider === "custom";
+    let message;
+    if (useGateway) message = await aiGenerateCustom(type,prompt);
+    else if (type === "image") message = await aiGenerateWithPollinations(prompt);
+    else throw new Error("در نسخه رایگان، فعلاً فقط تولید تصویر فعال است. برای متن، ویدئو، صدا یا سه‌بعدی باید سرویس جداگانه متصل شود.");
     aiSetStatus(message,"DONE"); aiSaveHistory(type,prompt,aiCurrentOutput?.kind || "text");
   } catch(err) {
     console.error("AI Studio error",err);
@@ -3809,13 +3829,13 @@ function bindEvents() {
     const ep = $("#cfgEndpoint");
     const ky = $("#cfgKey");
     const md = $("#cfgModel");
-    const puterMode = cfgProvider.value === "puter";
+    const keylessMode = cfgProvider.value === "pollinations";
     if (defs) {
       if (ep) ep.value = defs.endpoint;
       if (md) md.value = defs.model;
     }
-    if (ep && ep.parentElement) ep.parentElement.hidden = puterMode;
-    if (ky && ky.parentElement) ky.parentElement.hidden = puterMode;
+    if (ep && ep.parentElement) ep.parentElement.hidden = keylessMode;
+    if (ky && ky.parentElement) ky.parentElement.hidden = keylessMode;
   });
 
   const settingsSaveBtn = $("#settingsSaveBtn");
@@ -3864,10 +3884,10 @@ function bindEvents() {
       styleStrength: 0.7
     };
     state.config = {
-      provider: "puter",
-      endpoint: PROVIDER_DEFAULTS.puter.endpoint,
+      provider: "pollinations",
+      endpoint: PROVIDER_DEFAULTS.pollinations.endpoint,
       key: "",
-      model: PROVIDER_DEFAULTS.puter.model,
+      model: PROVIDER_DEFAULTS.pollinations.model,
       timeout: 180,
       rememberKey: false
     };
