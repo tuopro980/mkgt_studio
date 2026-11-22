@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+<script src="https://js.puter.com/v2/"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MKGT STUDIO — AI Creative Platform</title>
@@ -924,7 +925,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
       <div class="brand-mark">MK</div>
       <div class="brand-text">
         <h1>MKGT STUDIO</h1>
-        <p data-i18n="brandSub">AI CREATIVE PLATFORM</p>
+        <p data-i18n="brandSub">CREATIVE PLATFORM</p>
       </div>
     </div>
 
@@ -936,11 +937,6 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
     <button class="nav-item" data-nav="studio">
       <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></span>
       <span class="nav-text" data-i18n="navStudio">Studio</span>
-    </button>
-
-    <button class="nav-item" data-nav="ai">
-      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span>
-      <span class="nav-text">AI Creative Studio</span>
     </button>
 
     <button class="nav-item" data-nav="history">
@@ -992,14 +988,13 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
           <span class="badge">v2.0.0</span>
           <span class="badge" data-i18n="localBadge">LOCAL</span>
         </div>
-        <h2 data-i18n="heroTitle">Turn your Minecraft skin into anime art.</h2>
-        <p data-i18n="heroSub">Import a 64×64 or 64×32 PNG skin, choose a style, and generate a high-quality anime profile picture with your own AI provider.</p>
+        <h2 data-i18n="heroTitle">Your creative workspace.</h2>
+        <p data-i18n="heroSub">Manage your projects, settings, and creative workspace in one place.</p>
         <div class="row">
           <button class="btn primary" id="heroStartBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             <span data-i18n="openStudio">Open Studio</span>
           </button>
-          <button class="btn" id="heroAiBtn" onclick="navigate('ai')">✦ AI Creative Studio</button>
           <button class="btn" id="heroSettingsBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             <span data-i18n="configureAI">Configure AI</span>
@@ -1231,79 +1226,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
       </div>
     </section>
 
-    <!-- ============ AI CREATIVE PLATFORM ============ -->
-    <section class="view" id="view-ai" dir="rtl">
-      <div class="ai-hero">
-        <div>
-          <div class="ai-eyebrow">MKGT / GENERATIVE LAB</div>
-          <h2>استودیوی خلاقیت هوش مصنوعی</h2>
-          <p>پرامپتت رو بنویس، نوع خروجی رو انتخاب کن و با سرویس متناسب تولیدش کن.</p>
-        </div>
-        <span class="ai-live"><i></i> MULTI-PROVIDER WORKSPACE</span>
-      </div>
-
-      <div class="ai-layout">
-        <div class="card ai-controls">
-          <div class="card-head"><h2>ساخت محتوای جدید</h2><span class="badge">PROMPT TO CREATION</span></div>
-          <label class="field"><span class="lbl">نوع خروجی</span>
-            <select id="aiType">
-              <option value="image">🖼️ تصویر و طراحی</option>
-              <option value="video">🎬 ویدئو و انیمیشن</option>
-              <option value="text">✍️ متن و ایده‌پردازی</option>
-              <option value="code">💻 کدنویسی و وب‌سایت</option>
-              <option value="music">🔊 گفتار و تبدیل متن به صدا</option>
-              <option value="3d">🧊 مدل سه‌بعدی</option>
-            </select>
-          </label>
-          <label class="field"><span class="lbl">پرامپت / توضیحات</span>
-            <textarea id="aiPrompt" rows="6" placeholder="مثلاً: یک پوستر گیمینگ سینمایی برای سرور Minecraft با نور نئونی آبی و بنفش، کیفیت بالا..."></textarea>
-          </label>
-          <div class="field-row" id="aiImageOptions">
-            <label class="field"><span class="lbl">نسبت تصویر</span><select id="aiRatio"><option value="1:1">1:1 مربع</option><option value="16:9">16:9 افقی</option><option value="9:16">9:16 استوری</option><option value="4:5">4:5 پست</option></select></label>
-            <label class="field"><span class="lbl">کیفیت</span><select id="aiQuality"><option value="standard">استاندارد</option><option value="high">بالا</option></select></label>
-          </div>
-          <div class="field-row" id="aiVideoOptions" hidden>
-            <label class="field"><span class="lbl">مدت ویدئو</span><select id="aiDuration"><option value="5">۵ ثانیه</option><option value="10" selected>۱۰ ثانیه</option><option value="15">۱۵ ثانیه</option></select></label>
-            <label class="field"><span class="lbl">نسبت تصویر</span><select id="aiVideoRatio"><option value="16:9">16:9 افقی</option><option value="9:16">9:16 عمودی</option><option value="1:1">1:1 مربع</option></select></label>
-          </div>
-          <label class="field"><span class="lbl">سرویس تولید</span>
-            <select id="aiProvider">
-              <option value="auto">انتخاب خودکار (پیشنهادی)</option>
-              <option value="pollinations">Pollinations — تصویر رایگان بدون کلید</option>
-              <option value="custom">سرویس اختصاصی / API من</option>
-            </select>
-            <small class="help" id="aiProviderHelp">تولید تصویر با Pollinations بدون کلید API؛ سایر خروجی‌ها به سرویس جداگانه نیاز دارند.</small>
-          </label>
-          <div id="aiCustomConfig" class="ai-custom-config" hidden>
-            <label class="field"><span class="lbl">آدرس API یا Proxy</span><input id="aiEndpoint" type="url" placeholder="https://your-server.example/api/generate"></label>
-            <label class="field"><span class="lbl">کلید دسترسی (اختیاری)</span><input id="aiApiKey" type="password" autocomplete="off" placeholder="کلید را فقط در صورت اعتماد به سرور وارد کن"></label>
-            <div class="alert warn"><span class="msg">Gateway باید درخواست JSON با فیلد task و prompt بپذیرد و یکی از فیلدهای url / video_url / image_url / audio_url / text را برگرداند. کلیدهای اصلی سرویس‌ها را فقط روی سرور نگه دار؛ داخل HTML عمومی قرار نده.</span></div>
-          </div>
-          <label class="field"><span class="lbl">تصویر مرجع (اختیاری)</span><input id="aiReference" type="file" accept="image/*,video/*"></label>
-          <div id="aiReferenceName" class="ai-ref-name">هنوز فایلی انتخاب نشده</div>
-          <button class="btn primary ai-generate" id="aiGenerateBtn"><span>✦</span> شروع تولید</button>
-          <div class="ai-note">تصویر با سرویس رایگان Pollinations ساخته می‌شود؛ برای استفاده بدون کلید تضمین دائمی وجود ندارد و محدودیت درخواست دارد. برای جلوگیری از محدودیت، بین درخواست‌های جدید حداقل ۴۵ ثانیه فاصله بگذار.</div>
-        </div>
-
-        <div class="card ai-output-card">
-          <div class="card-head"><h2>خروجی استودیو</h2><span class="badge" id="aiOutputStatus">READY</span></div>
-          <div id="aiOutput" class="ai-output">
-            <div class="ai-empty"><div class="ai-empty-icon">✧</div><strong>ایده‌ات رو به واقعیت تبدیل کن</strong><span>بعد از تولید، نتیجه اینجا نمایش داده می‌شود.</span></div>
-          </div>
-          <div class="ai-output-actions" id="aiOutputActions" hidden>
-            <button class="btn sm" id="aiDownloadBtn">دانلود خروجی</button>
-            <button class="btn sm" id="aiCopyBtn">کپی متن</button>
-          </div>
-          <div class="ai-provider-status" id="aiStatusText">سرویس آماده انتخاب است.</div>
-        </div>
-      </div>
-
-      <div class="card ai-history-card">
-        <div class="card-head"><h2>آخرین خروجی‌های استودیو</h2><button class="btn sm" id="aiClearHistory">پاک کردن فهرست</button></div>
-        <div id="aiHistoryList" class="ai-history-list"><span class="help">هنوز خروجی جدیدی ثبت نشده است.</span></div>
-      </div>
-    </section>
-
+    <!-- ============ CREATIVE PLATFORM ============ -->
     <!-- ============ HISTORY VIEW ============ -->
     <section class="view" id="view-history">
       <div class="card">
@@ -1331,7 +1254,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
           <label class="field">
             <span class="lbl" data-i18n="provider">Provider</span>
             <select id="cfgProvider">
-              <option value="pollinations">Pollinations — رایگان بدون کلید</option>
+              <option value="puter">Puter — ورود با حساب کاربری</option>
               <option value="openai">OpenAI — images/edits</option>
               <option value="stability">Stability AI — SD3 image-to-image</option>
               <option value="custom">Custom JSON endpoint</option>
@@ -1405,7 +1328,7 @@ body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alte
       <div class="card">
         <div class="card-head"><h2 data-i18n="aboutTitle">About MKGT STUDIO</h2></div>
         <p style="color:var(--text-2);line-height:1.7;font-size:13.5px;" data-i18n="aboutBody">
-          MKGT STUDIO is a multi-output AI creative workspace. Image generation uses the public Pollinations legacy endpoint without an API key; video, audio, and 3D outputs require a compatible external API or secure backend proxy.
+          MKGT STUDIO is a multi-output AI creative workspace. Image generation uses the public Puter legacy endpoint without an API key; video, audio, and 3D outputs require a compatible external API or secure backend proxy.
         </p>
         <div class="section-title">Version</div>
         <div class="preview-info"><span>Version</span><strong>2.0.0</strong></div>
@@ -1511,8 +1434,8 @@ const I18N = {
     newProject: "New Project",
     localBadge: "LOCAL",
 
-    heroTitle: "Turn your Minecraft skin into anime art.",
-    heroSub: "Import a 64×64 or 64×32 PNG skin, choose a style, and generate a high-quality anime profile picture with your own AI provider.",
+    heroTitle: "Your creative workspace.",
+    heroSub: "Manage your projects, settings, and creative workspace in one place.",
     openStudio: "Open Studio",
     configureAI: "Configure AI",
 
@@ -1592,7 +1515,7 @@ const I18N = {
     save: "Save",
 
     aboutTitle: "About MKGT STUDIO",
-    aboutBody: "MKGT STUDIO is a multi-output AI creative workspace. Image generation uses the public Pollinations legacy endpoint without an API key; video, audio, and 3D outputs require a compatible external API or secure backend proxy.",
+    aboutBody: "MKGT STUDIO is a multi-output AI creative workspace. Image generation uses the public Puter legacy endpoint without an API key; video, audio, and 3D outputs require a compatible external API or secure backend proxy.",
 
     editorTitle: "Image editor",
     zoom: "Zoom",
@@ -1808,7 +1731,7 @@ const OPTIONS = {
 const COUNT_OPTIONS = [1, 2, 3, 4];
 
 const PROVIDER_DEFAULTS = {
-  pollinations: { endpoint: "https://image.pollinations.ai/prompt/", model: "flux" },
+  puter:     { endpoint: "", model: "gpt-image-2.6-flash" },
   openai:    { endpoint: "https://api.openai.com/v1/images/edits", model: "gpt-image-1" },
   stability: { endpoint: "https://api.stability.ai/v2beta/stable-image/generate/sd3", model: "sd3.5-large" },
   custom:    { endpoint: "", model: "" }
@@ -1886,10 +1809,10 @@ const state = {
     styleStrength: 0.7
   },
   config: {
-    provider: "pollinations",
-    endpoint: PROVIDER_DEFAULTS.pollinations.endpoint,
+    provider: "puter",
+    endpoint: PROVIDER_DEFAULTS.puter.endpoint,
     key: "",
-    model: PROVIDER_DEFAULTS.pollinations.model,
+    model: PROVIDER_DEFAULTS.puter.model,
     timeout: 180,
     rememberKey: false,
     theme: "dark"
@@ -2457,48 +2380,34 @@ async function buildProviderRequest(referenceCanvas, prompt, negative, settings,
  * Returns an array of image URLs (data URLs or remote URLs).
  */
 async function callProvider(referenceCanvas, prompt, negative, settings, signal) {
-  if (state.config.provider === "pollinations") {
+  if (state.config.provider === "puter") {
+    if (!window.puter || !window.puter.ai || typeof window.puter.ai.txt2img !== "function") {
+      throw new Error("کتابخانه Puter بارگذاری نشده است. اتصال اینترنت را بررسی و صفحه را تازه‌سازی کن.");
+    }
     if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
-    const palette = [];
-    try {
-      const ctx = referenceCanvas.getContext("2d", {willReadFrequently:true});
-      const w = referenceCanvas.width, h = referenceCanvas.height;
-      const data = ctx.getImageData(0, 0, w, h).data;
-      const counts = new Map();
-      const step = Math.max(4, Math.floor((w*h)/5000));
-      for (let i = 0; i < w*h; i += step) {
-        const p = i*4, a = data[p+3];
-        if (a < 100) continue;
-        const key = [data[p]>>4, data[p+1]>>4, data[p+2]>>4].join(",");
-        counts.set(key, (counts.get(key)||0)+1);
-      }
-      [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([k]) => {
-        const rgb = k.split(",").map(v=>Math.min(255,Number(v)*16+8));
-        palette.push("#"+rgb.map(v=>v.toString(16).padStart(2,"0")).join(""));
-      });
-    } catch (_) {}
-    const fullPrompt = [
-      prompt,
-      palette.length ? "Use a color palette inspired by the uploaded reference skin: " + palette.join(", ") + "." : "",
-      negative ? "Avoid: " + negative : "",
-      "high quality detailed illustration"
-    ].filter(Boolean).join(", ");
-    const ratio = (settings && settings.ratio) || "1:1";
-    const dims = ratio === "16:9" ? [768,432] : ratio === "9:16" ? [432,768] :
-                 ratio === "4:5" ? [512,640] : [512,512];
-    const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(fullPrompt) +
-      "?width=" + dims[0] + "&height=" + dims[1] +
-      "&model=flux&nologo=true&seed=" + Math.floor(Math.random()*1000000000);
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    await new Promise((resolve,reject) => {
-      const timeout = setTimeout(() => reject(new Error("زمان پاسخ سرویس تمام شد. دوباره تلاش کن.")), 90000);
-      img.onload = () => { clearTimeout(timeout); resolve(); };
-      img.onerror = () => { clearTimeout(timeout); reject(new Error("سرویس رایگان تصویر پاسخ نداد یا محدودیت موقت دارد. حداقل ۴۵ ثانیه صبر کن و دوباره تلاش کن.")); };
-      img.src = url;
+    const refBlob = await canvasToBlob(referenceCanvas, "image/png");
+    const fullPrompt = prompt + (negative ? "\\n\\nAvoid: " + negative : "");
+    const generated = await window.puter.ai.txt2img(fullPrompt, {
+      model: state.config.model || "gpt-image-2.6-flash",
+      input_image: refBlob,
+      aspect_ratio: (settings && settings.ratio) || "1:1",
+      quality: "low"
     });
     if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
-    return [url];
+
+    let imageSrc = "";
+    if (typeof generated === "string") imageSrc = generated;
+    else if (generated instanceof Blob) imageSrc = await blobToDataURL(generated);
+    else if (generated && generated.src) imageSrc = generated.src;
+    else if (generated && generated.currentSrc) imageSrc = generated.currentSrc;
+    else if (generated && generated.data instanceof Blob) imageSrc = await blobToDataURL(generated.data);
+
+    if (!imageSrc) {
+      let detail = "";
+      try { detail = JSON.stringify(generated).slice(0, 700); } catch (_) {}
+      throw new Error("Puter خروجی تصویر قابل نمایش برنگرداند." + (detail ? " جزئیات: " + detail : ""));
+    }
+    return [imageSrc];
   }
 
   const req = await buildProviderRequest(referenceCanvas, prompt, negative, settings, signal);
@@ -2598,7 +2507,7 @@ function showGenAlert(type, message) {
 }
 
 function isConfigured() {
-  if (state.config.provider === "pollinations") return true;
+  if (state.config.provider === "puter") return !!(window.puter && window.puter.ai && typeof window.puter.ai.txt2img === "function");
   return !!(state.config.endpoint && state.config.endpoint.trim() && state.config.key && state.config.key.trim());
 }
 
@@ -3007,7 +2916,7 @@ function fillSettingsForm() {
   if (r) r.checked = !!state.config.rememberKey;
   if (lang) lang.value = state.lang;
   if (theme) theme.value = state.config.theme || "dark";
-  const keylessMode = state.config.provider === "pollinations";
+  const keylessMode = state.config.provider === "puter";
   if (e && e.parentElement) e.parentElement.hidden = keylessMode;
   if (k && k.parentElement) k.parentElement.hidden = keylessMode;
 
@@ -3018,15 +2927,15 @@ function refreshProviderSummary() {
   const el = $("#providerSummary");
   if (!el) return;
   if (isConfigured()) {
-    const providerLabel = state.config.provider === "pollinations" ? "Pollinations"
+    const providerLabel = state.config.provider === "puter" ? "Puter"
       : state.config.provider === "openai" ? "OpenAI"
       : state.config.provider === "stability" ? "Stability AI"
       : "Custom";
     el.innerHTML =
       '<div class="status" style="margin-bottom:6px;"><span class="dot"></span>' +
       '<span>' + escapeHtml(providerLabel) + " — " + escapeHtml(state.config.model || "default model") + "</span></div>" +
-      (state.config.provider === "pollinations"
-        ? '<div style="font-size:11.5px;color:var(--muted-2);">No API key or account required. Public free endpoint; rate limits may apply.</div>'
+      (state.config.provider === "puter"
+        ? '<div style="font-size:11.5px;color:var(--muted-2);">Sign in to your Puter account when prompted. No separate API key is needed; usage may consume your account allowance or require credits.</div>'
         : '<div style="font-family:var(--font-mono);font-size:11px;word-break:break-all;color:var(--muted-2);">' + escapeHtml(state.config.endpoint) + "</div>");
   } else {
     el.innerHTML =
@@ -3053,8 +2962,8 @@ function saveSettings() {
 
   if (p) state.config.provider = p.value;
   if (m) state.config.model = m.value.trim();
-  if (state.config.provider === "pollinations") {
-    state.config.endpoint = PROVIDER_DEFAULTS.pollinations.endpoint;
+  if (state.config.provider === "puter") {
+    state.config.endpoint = "";
     state.config.key = "";
     state.config.rememberKey = false;
   } else {
@@ -3344,7 +3253,7 @@ function aiTypeChanged() {
   if (imageOpts) imageOpts.hidden = type !== "image";
   if (videoOpts) videoOpts.hidden = type !== "video";
   const help = $("#aiProviderHelp");
-  if (help) help.textContent = type === "image" ? "انتخاب خودکار از Pollinations برای تولید تصویر استفاده می‌کند؛ می‌توانی Gateway اختصاصی هم وصل کنی." : type === "text" || type === "code" ? "در حالت رایگان فقط تولید تصویر فعال است." : "در حالت رایگان فقط تولید تصویر فعال است؛ برای این خروجی Gateway جداگانه لازم است.";
+  if (help) help.textContent = type === "image" ? "انتخاب خودکار از Puter برای تولید تصویر استفاده می‌کند؛ می‌توانی Gateway اختصاصی هم وصل کنی." : type === "text" || type === "code" ? "در حالت رایگان فقط تولید تصویر فعال است." : "در حالت رایگان فقط تولید تصویر فعال است؛ برای این خروجی Gateway جداگانه لازم است.";
   aiProviderChanged();
 }
 function aiProviderChanged() {
@@ -3372,7 +3281,7 @@ function aiShowText(text, asCode) {
   $("#aiOutputActions").hidden = false;
   $("#aiDownloadBtn").hidden = false; $("#aiCopyBtn").hidden = false;
 }
-async function aiGenerateWithPollinations(prompt) {
+async function aiGenerateWithPuter(prompt) {
   const ratio = $("#aiRatio")?.value || "1:1";
   const dims = ratio === "16:9" ? [768,432] : ratio === "9:16" ? [432,768] :
                ratio === "4:5" ? [512,640] : [512,512];
@@ -3553,7 +3462,7 @@ async function runAiStudio() {
     const useGateway = provider === "custom";
     let message;
     if (useGateway) message = await aiGenerateCustom(type,prompt);
-    else if (type === "image") message = await aiGenerateWithPollinations(prompt);
+    else if (type === "image") message = await aiGenerateWithPuter(prompt);
     else throw new Error("در نسخه رایگان، فعلاً فقط تولید تصویر فعال است. برای متن، ویدئو، صدا یا سه‌بعدی باید سرویس جداگانه متصل شود.");
     aiSetStatus(message,"DONE"); aiSaveHistory(type,prompt,aiCurrentOutput?.kind || "text");
   } catch(err) {
@@ -3829,7 +3738,7 @@ function bindEvents() {
     const ep = $("#cfgEndpoint");
     const ky = $("#cfgKey");
     const md = $("#cfgModel");
-    const keylessMode = cfgProvider.value === "pollinations";
+    const keylessMode = cfgProvider.value === "puter";
     if (defs) {
       if (ep) ep.value = defs.endpoint;
       if (md) md.value = defs.model;
@@ -3884,10 +3793,10 @@ function bindEvents() {
       styleStrength: 0.7
     };
     state.config = {
-      provider: "pollinations",
-      endpoint: PROVIDER_DEFAULTS.pollinations.endpoint,
+      provider: "puter",
+      endpoint: PROVIDER_DEFAULTS.puter.endpoint,
       key: "",
-      model: PROVIDER_DEFAULTS.pollinations.model,
+      model: PROVIDER_DEFAULTS.puter.model,
       timeout: 180,
       rememberKey: false
     };
