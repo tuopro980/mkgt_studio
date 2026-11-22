@@ -1,0 +1,3954 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKGT STUDIO — AI Creative Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   MKGT STUDIO — DESIGN SYSTEM
+   ========================================================================= */
+:root{
+  --bg-0:#05060b;
+  --bg-1:#080a14;
+  --bg-2:#0b0e1a;
+  --panel:rgba(14,17,32,.72);
+  --panel-2:rgba(9,11,22,.85);
+  --glass:rgba(255,255,255,.035);
+  --glass-2:rgba(255,255,255,.06);
+  --border:rgba(140,150,220,.12);
+  --border-2:rgba(140,150,220,.22);
+  --border-3:rgba(140,150,220,.36);
+  --text:#e8ebf9;
+  --text-2:#b3bad8;
+  --muted:#7b84a8;
+  --muted-2:#565f80;
+  --accent:#7c5cff;
+  --accent-2:#a78bfa;
+  --accent-soft:rgba(124,92,255,.14);
+  --accent-glow:rgba(124,92,255,.5);
+  --cyan:#38d9f5;
+  --green:#34d399;
+  --amber:#f5b544;
+  --red:#f25570;
+  --r-xs:8px;
+  --r-sm:12px;
+  --r-md:16px;
+  --r-lg:22px;
+  --r-xl:28px;
+  --sh-sm:0 4px 14px -6px rgba(0,0,0,.7);
+  --sh-md:0 14px 40px -18px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.045);
+  --sh-lg:0 30px 80px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --font-fa:'Vazirmatn','Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.3,1);
+  --dur:220ms;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; height:100%; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  font-family:var(--font);
+  font-size:14px;
+  line-height:1.55;
+  color:var(--text);
+  background:var(--bg-0);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow:hidden;
+}
+html[dir="rtl"] body{ font-family:var(--font-fa); }
+
+button{ font-family:inherit; }
+input,select,textarea{ font-family:inherit; }
+img{ display:block; max-width:100%; }
+::selection{ background:var(--accent-glow); color:#fff; }
+
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(124,92,255,.28); border-radius:999px; border:2px solid transparent; background-clip:content-box; }
+::-webkit-scrollbar-thumb:hover{ background:rgba(124,92,255,.55); background-clip:content-box; }
+
+/* =========================================================================
+   APP SHELL
+   ========================================================================= */
+.app{
+  display:grid;
+  grid-template-columns:250px 1fr;
+  grid-template-rows:60px 1fr;
+  height:100vh;
+  width:100vw;
+  background:
+    radial-gradient(900px 600px at 8% -10%, #171243 0%, transparent 55%),
+    radial-gradient(800px 520px at 102% 0%, #0a2740 0%, transparent 52%),
+    radial-gradient(1000px 700px at 50% 120%, #1d0f3d 0%, transparent 55%),
+    var(--bg-1);
+}
+@media (max-width:960px){
+  .app{ grid-template-columns:1fr; grid-template-rows:56px 1fr; }
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  grid-row:1 / span 2;
+  display:flex; flex-direction:column;
+  background:linear-gradient(180deg, rgba(10,12,24,.92), rgba(7,9,18,.88));
+  border-inline-end:1px solid var(--border);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  padding:20px 14px;
+  gap:8px;
+  z-index:20;
+}
+@media (max-width:960px){
+  .sidebar{
+    grid-row:auto;
+    flex-direction:row;
+    align-items:center;
+    padding:8px 12px;
+    gap:4px;
+    overflow-x:auto;
+    border-inline-end:none;
+    border-block-end:1px solid var(--border);
+  }
+  .sidebar .brand{ margin-inline-end:auto; }
+  .sidebar .nav-label{ display:none; }
+  .sidebar .nav-item span.nav-text{ display:none; }
+}
+
+.brand{
+  display:flex; align-items:center; gap:11px;
+  padding:2px 6px 22px;
+}
+@media (max-width:960px){ .brand{ padding:0 6px; } }
+.brand-mark{
+  width:38px; height:38px; border-radius:11px;
+  display:grid; place-items:center;
+  font-size:18px; font-weight:800; color:#fff;
+  background:linear-gradient(145deg,#8b6bff,#5a4bff 55%,#38d9f5);
+  box-shadow:0 10px 26px -10px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,.4);
+  flex:0 0 auto;
+}
+.brand-text h1{
+  margin:0;
+  font-size:14.5px; font-weight:800; letter-spacing:.09em;
+  color:#fff;
+  background:linear-gradient(100deg,#fff,#c3ccff 60%,#8ee9ff);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.brand-text p{
+  margin:1px 0 0; font-size:10px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2);
+}
+@media (max-width:960px){
+  .brand-text h1{ font-size:13px; }
+  .brand-text p{ display:none; }
+}
+
+.nav-label{
+  font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted-2); padding:14px 10px 6px;
+}
+
+.nav-item{
+  display:flex; align-items:center; gap:11px;
+  padding:10px 12px;
+  border-radius:11px;
+  color:var(--text-2);
+  font-size:13.5px; font-weight:500;
+  cursor:pointer;
+  border:1px solid transparent;
+  background:transparent;
+  text-align:start;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  white-space:nowrap;
+}
+.nav-item:hover{ background:var(--glass); color:#fff; }
+.nav-item.active{
+  background:linear-gradient(90deg, rgba(124,92,255,.22), rgba(124,92,255,.05));
+  color:#fff;
+  border-color:rgba(124,92,255,.28);
+}
+.nav-item.active .nav-ico{ color:var(--accent-2); }
+.nav-ico{
+  width:18px; height:18px; flex:0 0 auto; display:grid; place-items:center;
+  color:var(--muted);
+  transition:color var(--dur) var(--ease);
+}
+.nav-ico svg{ width:18px; height:18px; }
+
+.sidebar-footer{
+  margin-top:auto; padding:12px 8px 0;
+  border-block-start:1px solid var(--border);
+  font-size:11px; color:var(--muted-2);
+  display:flex; flex-direction:column; gap:6px;
+}
+@media (max-width:960px){ .sidebar-footer{ display:none; } }
+.status{
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:11px; font-weight:600; color:var(--text-2);
+}
+.dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+.dot.offline{ background:var(--amber); box-shadow:0 0 10px var(--amber); }
+@keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.5} }
+
+/* ---------- Topbar ---------- */
+.topbar{
+  display:flex; align-items:center; gap:14px;
+  padding:0 24px;
+  border-block-end:1px solid var(--border);
+  background:rgba(8,10,20,.55);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  z-index:15;
+}
+@media (max-width:960px){
+  .topbar{ padding:0 14px; }
+}
+.crumb{
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; color:var(--muted);
+  font-weight:500;
+}
+.crumb strong{ color:#fff; font-weight:600; }
+.crumb-sep{ opacity:.4; }
+.topbar-actions{
+  margin-inline-start:auto; display:flex; gap:8px; align-items:center;
+}
+
+/* ---------- Main ---------- */
+.main{
+  overflow:auto;
+  padding:26px;
+  position:relative;
+}
+@media (max-width:960px){ .main{ padding:18px 14px; } }
+
+.view{ display:none; }
+.view.active{ display:block; animation:viewIn .32s var(--ease) both; }
+@keyframes viewIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+/* =========================================================================
+   SHARED COMPONENTS
+   ========================================================================= */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:9px 15px;
+  font-size:13px; font-weight:600; letter-spacing:.01em;
+  color:var(--text);
+  background:var(--glass);
+  border:1px solid var(--border-2);
+  border-radius:10px;
+  cursor:pointer;
+  transition:transform .14s var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), opacity var(--dur);
+  white-space:nowrap;
+  user-select:none;
+}
+.btn:hover:not(:disabled){ transform:translateY(-1px); background:var(--glass-2); border-color:var(--border-3); }
+.btn:active:not(:disabled){ transform:translateY(0) scale(.985); }
+.btn:disabled{ opacity:.45; cursor:not-allowed; }
+.btn svg{ width:15px; height:15px; }
+.btn.primary{
+  background:linear-gradient(135deg,#7c5cff,#5a63ff 50%,#38a8ff);
+  border-color:transparent; color:#fff;
+  box-shadow:0 10px 28px -12px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,.3);
+}
+.btn.primary:hover:not(:disabled){ box-shadow:0 16px 38px -12px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,.35); }
+.btn.danger{ color:#ffb3c2; border-color:rgba(242,85,112,.35); }
+.btn.danger:hover:not(:disabled){ background:rgba(242,85,112,.12); border-color:rgba(242,85,112,.6); }
+.btn.ghost{ background:transparent; }
+.btn.sm{ padding:6px 11px; font-size:12px; border-radius:8px; }
+.btn.sm svg{ width:13px; height:13px; }
+.btn.icon-only{ padding:9px; }
+.btn.icon-only svg{ width:16px; height:16px; }
+
+.icon-btn{
+  width:34px; height:34px; padding:0;
+  display:grid; place-items:center;
+  border-radius:9px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  color:var(--muted);
+  cursor:pointer;
+  transition:.2s;
+}
+.icon-btn:hover{ color:#fff; background:var(--glass-2); border-color:var(--border-3); }
+.icon-btn svg{ width:16px; height:16px; }
+
+.card{
+  background:linear-gradient(160deg, var(--panel), var(--panel-2));
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  box-shadow:var(--sh-md);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  padding:22px;
+}
+.card.tight{ padding:18px; }
+
+.card-head{
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:16px;
+}
+.card-head h2, .card-head h3{
+  margin:0; font-size:14.5px; font-weight:700; letter-spacing:.01em; color:#fff;
+}
+.card-head .sub{ font-size:11.5px; color:var(--muted); font-weight:500; }
+.card-head .spacer{ flex:1; }
+.card-head .badge{
+  font-size:10.5px; font-weight:700; letter-spacing:.06em;
+  padding:4px 9px; border-radius:999px;
+  background:var(--accent-soft); color:var(--accent-2);
+  border:1px solid rgba(124,92,255,.28);
+  text-transform:uppercase;
+}
+
+.section-title{
+  margin:22px 0 12px;
+  font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted-2);
+}
+
+.field{ display:block; margin-bottom:13px; }
+.field:last-child{ margin-bottom:0; }
+.field > label, .field > .lbl{
+  display:block;
+  font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:7px;
+}
+.field input, .field select, .field textarea{
+  width:100%;
+  font-size:13px; color:var(--text);
+  background:rgba(4,6,14,.72);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  outline:none;
+  transition:border-color var(--dur), box-shadow var(--dur);
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  border-color:rgba(124,92,255,.7);
+  box-shadow:0 0 0 3px rgba(124,92,255,.14);
+}
+.field textarea{ resize:vertical; min-height:76px; line-height:1.6; font-family:var(--font-mono); font-size:12px; }
+.field select{ cursor:pointer; appearance:none; padding-inline-end:32px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 50%, calc(100% - 12px) 50%;
+  background-size:5px 5px,5px 5px;
+  background-repeat:no-repeat;
+}
+html[dir="rtl"] .field select{
+  padding-inline-end:12px; padding-inline-start:32px;
+  background-position:17px 50%, 12px 50%;
+}
+.field .help{ display:block; margin-top:6px; font-size:11.5px; color:var(--muted-2); line-height:1.5; }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:600px){ .field-row{ grid-template-columns:1fr; } }
+
+.chips{ display:flex; flex-wrap:wrap; gap:7px; }
+.chip{
+  font-size:12.5px; font-weight:500;
+  padding:7px 13px;
+  color:var(--muted);
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(140,150,220,.14);
+  border-radius:999px;
+  cursor:pointer;
+  transition:all var(--dur) var(--ease);
+  user-select:none;
+}
+.chip:hover{ color:var(--text); border-color:var(--border-3); transform:translateY(-1px); }
+.chip.active{
+  color:#fff; border-color:transparent;
+  background:linear-gradient(135deg,rgba(124,92,255,.92),rgba(58,131,255,.8));
+  box-shadow:0 8px 22px -10px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+/* ---------- Toggle ---------- */
+.toggle{ display:inline-flex; align-items:center; cursor:pointer; gap:10px; user-select:none; }
+.toggle input{ display:none; }
+.toggle-track{
+  width:38px; height:22px; border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border-2);
+  position:relative;
+  transition:background var(--dur), border-color var(--dur);
+}
+.toggle-track::after{
+  content:''; position:absolute; top:2px; left:2px;
+  width:16px; height:16px; border-radius:50%;
+  background:#8a92b8;
+  transition:transform var(--dur) var(--ease), background var(--dur);
+}
+.toggle input:checked + .toggle-track{
+  background:linear-gradient(135deg,#7c5cff,#5a63ff);
+  border-color:transparent;
+}
+.toggle input:checked + .toggle-track::after{ transform:translateX(16px); background:#fff; }
+html[dir="rtl"] .toggle input:checked + .toggle-track::after{ transform:translateX(-16px); }
+
+/* ---------- Alert ---------- */
+.alert{
+  display:flex; gap:10px; align-items:flex-start;
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:12.5px; line-height:1.55;
+  margin-bottom:14px;
+  animation:viewIn .3s var(--ease);
+}
+.alert svg{ width:16px; height:16px; flex:0 0 auto; margin-top:2px; }
+.alert.info{ background:rgba(56,217,245,.08); border:1px solid rgba(56,217,245,.3); color:#b0f0ff; }
+.alert.warn{ background:rgba(245,181,68,.08); border:1px solid rgba(245,181,68,.32); color:#ffe0a3; }
+.alert.error{ background:rgba(242,85,112,.09); border:1px solid rgba(242,85,112,.36); color:#ffc0cc; }
+.alert.success{ background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.32); color:#a7f3cf; }
+.alert .msg{ flex:1; word-break:break-word; }
+.alert .close{
+  background:none; border:0; color:currentColor; opacity:.6;
+  cursor:pointer; padding:0; margin-inline-start:6px; font-size:15px; line-height:1;
+}
+.alert .close:hover{ opacity:1; }
+
+/* ---------- Dashboard ---------- */
+.dash-hero{
+  position:relative; overflow:hidden;
+  padding:30px 28px;
+  margin-bottom:22px;
+  border-radius:var(--r-xl);
+  background:
+    radial-gradient(520px 320px at 15% 20%, rgba(124,92,255,.35), transparent 62%),
+    radial-gradient(480px 300px at 92% 90%, rgba(56,217,245,.18), transparent 60%),
+    linear-gradient(140deg, #141838, #0b0d1c 60%, #100b26);
+  border:1px solid rgba(140,150,220,.16);
+  box-shadow:var(--sh-lg);
+}
+.dash-hero::before{
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(124,92,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,92,255,.06) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(600px 400px at 30% 30%, #000 30%, transparent 75%);
+  -webkit-mask-image:radial-gradient(600px 400px at 30% 30%, #000 30%, transparent 75%);
+  pointer-events:none;
+}
+.dash-hero > *{ position:relative; }
+.dash-hero h2{
+  margin:0 0 8px;
+  font-size:26px; font-weight:800; letter-spacing:-.02em;
+  color:#fff;
+}
+.dash-hero p{ margin:0 0 20px; max-width:560px; color:var(--text-2); font-size:14px; line-height:1.6; }
+.dash-hero .row{ display:flex; gap:10px; flex-wrap:wrap; }
+.hero-meta{
+  position:absolute; top:26px; inset-inline-end:26px;
+  display:flex; gap:8px; align-items:center;
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted);
+}
+.hero-meta .badge{
+  padding:5px 10px; border-radius:999px;
+  background:rgba(255,255,255,.06); border:1px solid var(--border-2);
+  color:var(--text-2);
+}
+@media (max-width:700px){
+  .hero-meta{ position:static; margin-bottom:12px; }
+}
+
+.grid-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
+  gap:14px;
+}
+.tile{
+  display:flex; flex-direction:column; gap:10px;
+  padding:18px;
+  border-radius:var(--r-md);
+  background:linear-gradient(160deg, var(--panel), var(--panel-2));
+  border:1px solid var(--border);
+  box-shadow:var(--sh-sm);
+  cursor:pointer;
+  transition:transform var(--dur) var(--ease), border-color var(--dur), box-shadow var(--dur), background var(--dur);
+  text-align:start;
+  position:relative;
+  overflow:hidden;
+}
+.tile:hover{
+  transform:translateY(-3px);
+  border-color:rgba(124,92,255,.4);
+  box-shadow:0 22px 50px -22px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.tile:hover .tile-ico{ color:var(--accent-2); transform:scale(1.08); }
+.tile-ico{
+  width:38px; height:38px; border-radius:11px;
+  display:grid; place-items:center;
+  color:var(--muted);
+  background:rgba(124,92,255,.12);
+  border:1px solid rgba(124,92,255,.22);
+  transition:color var(--dur), transform var(--dur) var(--ease);
+}
+.tile-ico svg{ width:19px; height:19px; }
+.tile h3{ margin:2px 0 0; font-size:14px; font-weight:700; color:#fff; }
+.tile p{ margin:0; font-size:12px; color:var(--muted); line-height:1.5; }
+
+.history-list{
+  display:flex; flex-direction:column; gap:8px;
+}
+.history-item{
+  display:flex; align-items:center; gap:12px;
+  padding:11px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  transition:background var(--dur), border-color var(--dur);
+}
+.history-item:hover{ background:rgba(255,255,255,.04); border-color:var(--border-2); }
+.history-thumb{
+  width:42px; height:42px; border-radius:8px; flex:0 0 auto;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  overflow:hidden; display:grid; place-items:center;
+  color:var(--muted-2); font-size:14px;
+}
+.history-thumb img{ width:100%; height:100%; object-fit:cover; }
+.history-body{ flex:1; min-width:0; }
+.history-body h4{ margin:0; font-size:13px; font-weight:600; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.history-body p{ margin:2px 0 0; font-size:11.5px; color:var(--muted); }
+.history-actions{ display:flex; gap:4px; }
+.empty{
+  text-align:center; padding:34px 18px;
+  font-size:12.5px; color:var(--muted-2);
+  border:1px dashed rgba(140,150,220,.16);
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+}
+.empty .big{ display:block; font-size:26px; margin-bottom:10px; opacity:.5; }
+
+/* ---------- Studio layout ---------- */
+.studio{
+  display:grid;
+  grid-template-columns:minmax(300px, 380px) 1fr;
+  gap:18px;
+  align-items:start;
+}
+@media (max-width:1180px){ .studio{ grid-template-columns:1fr; } }
+
+.panel-stack{ display:flex; flex-direction:column; gap:18px; }
+
+/* Dropzone */
+.dropzone{
+  border:1.6px dashed rgba(140,150,220,.28);
+  border-radius:var(--r-md);
+  padding:26px 18px;
+  text-align:center;
+  background:rgba(255,255,255,.012);
+  transition:border-color var(--dur), background var(--dur), transform var(--dur);
+}
+.dropzone.drag{
+  border-color:var(--accent);
+  background:rgba(124,92,255,.1);
+  transform:scale(1.005);
+}
+.dz-icon{
+  width:46px; height:46px; margin:0 auto 12px;
+  border-radius:13px;
+  display:grid; place-items:center;
+  color:#d7ddff;
+  background:linear-gradient(145deg, rgba(124,92,255,.28), rgba(56,217,245,.16));
+  border:1px solid rgba(140,150,220,.24);
+}
+.dz-icon svg{ width:22px; height:22px; }
+.dz-title{ margin:0 0 4px; font-size:13.5px; font-weight:600; }
+.dz-sub{ margin:0 0 14px; font-size:11.5px; color:var(--muted-2); }
+
+/* Character preview */
+.preview-stage{
+  position:relative;
+  aspect-ratio:1/1;
+  border-radius:var(--r-md);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(124,92,255,.22), transparent 60%),
+    linear-gradient(180deg, #0f1226, #080a16);
+  border:1px solid var(--border);
+  overflow:hidden;
+  display:grid; place-items:center;
+}
+.preview-stage .checker{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.025) 75%),
+    linear-gradient(45deg, rgba(255,255,255,.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.025) 75%);
+  background-size:22px 22px;
+  background-position:0 0, 11px 11px;
+  opacity:.6;
+}
+.preview-canvas{
+  position:relative;
+  max-width:100%; max-height:100%;
+  image-rendering:pixelated;
+  transition:transform .25s var(--ease);
+  transform-origin:center center;
+}
+.preview-toolbar{
+  display:flex; gap:6px; align-items:center;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.preview-toolbar .spacer{ flex:1; }
+.preview-info{
+  display:flex; justify-content:space-between; gap:10px;
+  margin-top:10px;
+  font-size:11.5px; color:var(--muted);
+}
+.preview-info strong{ color:var(--text-2); font-weight:600; }
+.preview-info .filename{ max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* Results */
+.results-stage{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+@media (max-width:700px){ .results-stage{ grid-template-columns:1fr; } }
+.result-frame{
+  aspect-ratio:1/1;
+  border-radius:var(--r-md);
+  background:
+    radial-gradient(circle at 50% 40%, rgba(124,92,255,.14), transparent 65%),
+    #080a14;
+  border:1px solid var(--border);
+  overflow:hidden;
+  position:relative;
+  display:grid; place-items:center;
+}
+.result-frame img{ width:100%; height:100%; object-fit:cover; }
+.result-frame .placeholder{
+  text-align:center; padding:20px;
+  font-size:11.5px; color:var(--muted-2);
+}
+.result-frame .placeholder svg{ width:28px; height:28px; margin:0 auto 8px; opacity:.5; display:block; }
+.compare-wrap{ position:relative; }
+.compare-wrap .before, .compare-wrap .after{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+}
+.compare-wrap .after{ clip-path:inset(0 calc(100% - var(--split,50%)) 0 0); }
+.compare-line{
+  position:absolute; top:0; bottom:0; left:var(--split,50%); width:2px;
+  background:linear-gradient(180deg,transparent,#7c5cff 25%,#38d9f5 75%,transparent);
+  box-shadow:0 0 14px var(--accent-glow);
+  pointer-events:none;
+}
+.compare-line::after{
+  content:'⇄';
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:30px; height:30px; border-radius:50%;
+  display:grid; place-items:center;
+  font-size:12px; color:#fff;
+  background:linear-gradient(135deg,#7c5cff,#38d9f5);
+  box-shadow:0 6px 18px -6px var(--accent-glow);
+  border:1px solid rgba(255,255,255,.3);
+}
+
+.result-actions{
+  display:flex; gap:8px; flex-wrap:wrap;
+  margin-top:12px;
+  justify-content:flex-end;
+}
+
+/* Progress */
+.progress-wrap{ margin-top:14px; }
+.progress-bar{
+  height:6px; border-radius:999px;
+  background:rgba(255,255,255,.06);
+  overflow:hidden;
+  position:relative;
+}
+.progress-fill{
+  height:100%; width:0%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#7c5cff,#38d9f5);
+  transition:width .35s var(--ease);
+  box-shadow:0 0 14px var(--accent-glow);
+}
+.progress-fill.indeterminate{
+  width:36% !important;
+  animation:indet 1.3s var(--ease) infinite;
+}
+@keyframes indet{
+  0%{ margin-inline-start:-40%; }
+  100%{ margin-inline-start:105%; }
+}
+.progress-text{
+  display:flex; justify-content:space-between; gap:10px;
+  margin-top:8px;
+  font-size:11.5px; color:var(--muted);
+}
+
+/* =========================================================================
+   MODAL
+   ========================================================================= */
+.modal{
+  position:fixed; inset:0; z-index:120;
+  display:none; place-items:center; padding:20px;
+  background:rgba(3,4,10,.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  overflow:auto;
+}
+.modal.open{ display:grid; animation:fadeIn .22s var(--ease) both; }
+@keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+.modal-card{
+  width:min(600px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:linear-gradient(160deg, var(--panel), var(--panel-2));
+  border:1px solid var(--border-2);
+  border-radius:var(--r-lg);
+  box-shadow:var(--sh-lg);
+  animation:viewIn .3s var(--ease) both;
+  padding:22px;
+}
+.modal-card.wide{ width:min(880px,100%); }
+.modal-head{
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:16px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.modal-head h2{ margin:0; font-size:16px; font-weight:700; }
+.modal-head .spacer{ flex:1; }
+.modal-actions{
+  display:flex; gap:10px; justify-content:flex-end;
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+  flex-wrap:wrap;
+}
+html[dir="rtl"] .modal-actions{ justify-content:flex-start; }
+
+/* Editor modal */
+.editor-stage{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:var(--r-md);
+  overflow:hidden;
+  background:#080a14;
+  border:1px solid var(--border);
+  cursor:grab;
+  touch-action:none;
+}
+.editor-stage:active{ cursor:grabbing; }
+.editor-inner{
+  position:absolute; inset:0;
+  transform-origin:center center;
+  transition:transform .12s linear;
+}
+.editor-inner img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  user-select:none; -webkit-user-drag:none; pointer-events:none;
+}
+.slider-row{
+  display:flex; align-items:center; gap:12px;
+  margin-top:12px;
+  font-size:12px; color:var(--muted); font-weight:600;
+}
+.slider-row > span:first-child{ flex:0 0 auto; min-width:60px; }
+.slider-row input[type=range]{
+  flex:1; -webkit-appearance:none; appearance:none;
+  height:5px; border-radius:999px;
+  background:linear-gradient(90deg, rgba(124,92,255,.85), rgba(56,217,245,.7));
+  outline:none; cursor:pointer;
+}
+.slider-row input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
+  background:#fff; border:3px solid #7c5cff; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.6);
+}
+.slider-row input[type=range]::-moz-range-thumb{
+  width:14px; height:14px; border-radius:50%; background:#fff; border:3px solid #7c5cff; cursor:pointer;
+}
+
+/* Toast */
+.toast-stack{
+  position:fixed; bottom:22px; inset-inline-end:22px; z-index:200;
+  display:flex; flex-direction:column; gap:8px;
+  pointer-events:none;
+}
+.toast{
+  pointer-events:auto;
+  padding:11px 15px;
+  border-radius:11px;
+  font-size:12.5px; font-weight:500;
+  color:#fff;
+  background:rgba(14,17,32,.94);
+  border:1px solid var(--border-2);
+  box-shadow:0 16px 40px -16px rgba(0,0,0,.9);
+  backdrop-filter:blur(14px);
+  animation:toastIn .3s var(--ease) both;
+  max-width:340px;
+  display:flex; gap:9px; align-items:flex-start;
+}
+.toast.out{ animation:toastOut .28s var(--ease) forwards; }
+@keyframes toastIn{ from{opacity:0; transform:translateY(14px) scale(.98);} to{opacity:1; transform:none;} }
+@keyframes toastOut{ to{opacity:0; transform:translateY(10px) scale(.98);} }
+.toast .ic{ flex:0 0 auto; width:14px; height:14px; margin-top:2px; }
+.toast.success{ border-color:rgba(52,211,153,.34); }
+.toast.success .ic{ color:var(--green); }
+.toast.error{ border-color:rgba(242,85,112,.4); }
+.toast.error .ic{ color:var(--red); }
+.toast.info .ic{ color:var(--cyan); }
+
+
+/* ---------- MKGT animated gaming theme ---------- */
+body.theme-gaming{
+  background:#030611;
+}
+body.theme-gaming .app{
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(0,220,255,.18),transparent 38%),
+    radial-gradient(ellipse at 88% 78%,rgba(155,60,255,.2),transparent 42%),
+    linear-gradient(135deg,#030611,#080d20 48%,#09051a);
+  background-size:140% 140%;
+  animation:gamingAmbient 12s ease-in-out infinite alternate;
+}
+body.theme-gaming .sidebar,
+body.theme-gaming .topbar{
+  background:rgba(3,8,22,.82);
+  border-color:rgba(0,225,255,.22);
+}
+body.theme-gaming .card,
+body.theme-gaming .tile{
+  border-color:rgba(0,210,255,.22);
+  box-shadow:0 0 24px rgba(0,190,255,.055),var(--sh-md);
+}
+body.theme-gaming .nav-item.active{
+  background:linear-gradient(100deg,rgba(0,210,255,.2),rgba(140,70,255,.16));
+  border-color:rgba(0,220,255,.4);
+}
+body.theme-gaming .btn.primary{
+  background:linear-gradient(110deg,#00b9df,#5b55ff,#a33cff);
+  background-size:200% 200%;
+  animation:gamingButton 5s ease infinite;
+}
+body.theme-gaming .brand-mark{
+  background:linear-gradient(135deg,#00d9ff,#625bff,#a33cff);
+  animation:gamingGlow 3s ease-in-out infinite alternate;
+}
+body.theme-gaming .dash-hero{
+  background:
+    linear-gradient(rgba(0,220,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,220,255,.045) 1px,transparent 1px),
+    radial-gradient(500px 300px at 15% 20%,rgba(0,210,255,.22),transparent 65%),
+    radial-gradient(500px 300px at 90% 90%,rgba(160,55,255,.2),transparent 65%),
+    #080d20;
+  background-size:36px 36px,36px 36px,auto,auto,auto;
+}
+@keyframes gamingAmbient{to{background-position:100% 0,0 100%,100% 100%;}}
+@keyframes gamingButton{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes gamingGlow{to{filter:drop-shadow(0 0 12px rgba(0,220,255,.65));}}
+@media(prefers-reduced-motion:reduce){
+  body.theme-gaming *,body.theme-gaming *::before,body.theme-gaming *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+/* ---------- Startup loading screen ---------- */
+#startupLoader{
+  position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
+  background:
+    radial-gradient(ellipse at 50% 45%,rgba(0,190,255,.16),transparent 42%),
+    radial-gradient(ellipse at 80% 80%,rgba(130,55,255,.18),transparent 42%),
+    #030611;color:#f4f8ff;overflow:hidden;
+  transition:opacity .55s ease,visibility .55s ease;
+}
+#startupLoader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+#startupLoader::before{
+  content:"";position:absolute;inset:-50%;
+  background:repeating-linear-gradient(115deg,transparent 0 70px,rgba(0,220,255,.045) 71px 72px,transparent 73px 140px);
+  animation:loaderSweep 9s linear infinite;
+}
+.loader-content{position:relative;width:min(420px,86vw);text-align:center}
+.loader-emblem{
+  width:76px;height:76px;margin:0 auto 22px;border-radius:22px;display:grid;place-items:center;
+  font-size:25px;font-weight:900;letter-spacing:-2px;color:white;
+  background:linear-gradient(135deg,#00cbe9,#5c5cff 60%,#a33cff);
+  box-shadow:0 0 45px rgba(0,205,255,.32);animation:loaderPulse 1.7s ease-in-out infinite;
+}
+.loader-title{font-size:clamp(20px,5vw,28px);font-weight:900;letter-spacing:.12em}
+.loader-sub{margin-top:8px;color:#8ea8c9;font-size:11px;letter-spacing:.22em}
+.loader-track{height:5px;margin:30px 0 12px;border-radius:20px;background:#17223a;overflow:hidden}
+.loader-fill{height:100%;width:38%;border-radius:20px;background:linear-gradient(90deg,#00d9ff,#655cff,#bd4cff);box-shadow:0 0 16px #00cfff;animation:loaderProgress 2s ease-in-out infinite}
+.loader-status{font-size:11px;color:#9baac5;letter-spacing:.12em}
+@keyframes loaderSweep{to{transform:translate3d(12%,8%,0)}}
+@keyframes loaderPulse{50%{transform:translateY(-5px) scale(1.04);box-shadow:0 0 65px rgba(0,205,255,.48)}}
+@keyframes loaderProgress{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
+
+/* Utility */
+.hidden{ display:none !important; }
+.spin{
+  width:13px; height:13px; border-radius:50%;
+  border:2px solid rgba(255,255,255,.28);
+  border-top-color:#fff;
+  animation:spin .7s linear infinite;
+  display:inline-block;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* ---------- AI Creative Platform ---------- */
+.ai-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:28px 30px;margin-bottom:18px;border:1px solid rgba(56,217,245,.2);border-radius:22px;background:radial-gradient(ellipse at 12% 0%,rgba(0,210,255,.18),transparent 45%),radial-gradient(ellipse at 95% 100%,rgba(124,92,255,.2),transparent 45%),linear-gradient(120deg,#0a1226,#11102b);box-shadow:0 18px 55px rgba(0,0,0,.22)}
+.ai-hero h2{margin:7px 0;font-size:clamp(22px,3vw,30px);font-weight:900}.ai-hero p{margin:0;color:var(--text-2);font-size:13px}.ai-eyebrow{font:700 10px var(--font-mono);letter-spacing:.2em;color:var(--cyan)}
+.ai-live{white-space:nowrap;font:700 9px var(--font-mono);letter-spacing:.1em;color:#9db4d4;border:1px solid var(--border-2);padding:8px 11px;border-radius:99px}.ai-live i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);margin-inline-end:7px}
+.ai-layout{display:grid;grid-template-columns:minmax(300px,.88fr) minmax(320px,1.12fr);gap:16px;align-items:start}.ai-controls,.ai-output-card{min-width:0}.ai-controls textarea{min-height:150px;font-family:var(--font-fa);font-size:13px;line-height:1.9}.ai-generate{width:100%;justify-content:center;margin-top:5px;min-height:48px;font-weight:800;letter-spacing:.03em}.ai-note{font-size:11px;line-height:1.8;color:var(--muted);margin-top:12px}.ai-ref-name{font-size:11px;color:var(--muted);margin:-5px 0 12px}.ai-output{min-height:430px;display:grid;place-items:center;border:1px dashed var(--border-2);border-radius:15px;background:linear-gradient(145deg,rgba(0,0,0,.16),rgba(40,50,90,.08));overflow:hidden;padding:12px}.ai-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;color:var(--muted)}.ai-empty-icon{font-size:44px;color:var(--cyan);text-shadow:0 0 25px rgba(56,217,245,.45)}.ai-empty strong{color:var(--text);font-size:15px}.ai-empty span{font-size:12px}.ai-output img,.ai-output video{max-width:100%;max-height:600px;border-radius:10px;object-fit:contain}.ai-output pre{width:100%;max-height:600px;overflow:auto;white-space:pre-wrap;word-break:break-word;text-align:left;direction:ltr;font:12px/1.8 var(--font-mono);padding:14px;color:#dce7ff}.ai-output-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.ai-provider-status{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.7}.ai-custom-config{padding:12px;border:1px solid var(--border);border-radius:12px;margin:8px 0 14px;background:rgba(0,0,0,.12)}.ai-history-list{display:flex;flex-direction:column;gap:8px}.ai-history-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;color:var(--text-2);font-size:12px}.ai-history-item strong{color:var(--text)}.ai-history-item small{color:var(--muted)}
+body.theme-gaming .ai-hero{animation:gamingAmbient 12s ease-in-out infinite alternate;border-color:rgba(0,220,255,.35)}body.theme-gaming .ai-controls,body.theme-gaming .ai-output-card{box-shadow:0 0 26px rgba(0,190,255,.06),var(--sh-md)}
+@media(max-width:900px){.ai-layout{grid-template-columns:1fr}.ai-hero{align-items:flex-start;flex-direction:column}.ai-live{white-space:normal}.ai-output{min-height:300px}}
+
+</style>
+</head>
+<body>
+
+<!-- =========================================================================
+     APP SHELL
+     ========================================================================= -->
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">MK</div>
+      <div class="brand-text">
+        <h1>MKGT STUDIO</h1>
+        <p data-i18n="brandSub">AI CREATIVE PLATFORM</p>
+      </div>
+    </div>
+
+    <button class="nav-item active" data-nav="dashboard">
+      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+      <span class="nav-text" data-i18n="navDashboard">Dashboard</span>
+    </button>
+
+    <button class="nav-item" data-nav="studio">
+      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></span>
+      <span class="nav-text" data-i18n="navStudio">Studio</span>
+    </button>
+
+    <button class="nav-item" data-nav="ai">
+      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span>
+      <span class="nav-text">AI Creative Studio</span>
+    </button>
+
+    <button class="nav-item" data-nav="history">
+      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+      <span class="nav-text" data-i18n="navHistory">History</span>
+    </button>
+
+    <div class="nav-label" data-i18n="navLabelSystem">System</div>
+
+    <button class="nav-item" data-nav="settings">
+      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+      <span class="nav-text" data-i18n="navSettings">Settings</span>
+    </button>
+
+    <button class="nav-item" data-nav="about">
+      <span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+      <span class="nav-text" data-i18n="navAbout">About</span>
+    </button>
+
+    <div class="sidebar-footer">
+      <div class="status"><span class="dot" id="statusDot"></span><span id="statusText" data-i18n="statusReady">Ready</span></div>
+      <div>v2.0.0 · <span data-i18n="localOnly">Multi-provider</span></div>
+    </div>
+  </aside>
+
+  <!-- ============ TOPBAR ============ -->
+  <header class="topbar">
+    <div class="crumb">
+      <span data-i18n="crumbRoot">MKGT STUDIO</span>
+      <span class="crumb-sep">/</span>
+      <strong id="crumbCurrent" data-i18n="navDashboard">Dashboard</strong>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="langBtn" title="Language">EN</button>
+      <button class="btn sm" id="newProjectBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span data-i18n="newProject">New Project</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- ============ DASHBOARD VIEW ============ -->
+    <section class="view active" id="view-dashboard">
+      <div class="dash-hero">
+        <div class="hero-meta">
+          <span class="badge">v2.0.0</span>
+          <span class="badge" data-i18n="localBadge">LOCAL</span>
+        </div>
+        <h2 data-i18n="heroTitle">Turn your Minecraft skin into anime art.</h2>
+        <p data-i18n="heroSub">Import a 64×64 or 64×32 PNG skin, choose a style, and generate a high-quality anime profile picture with your own AI provider.</p>
+        <div class="row">
+          <button class="btn primary" id="heroStartBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span data-i18n="openStudio">Open Studio</span>
+          </button>
+          <button class="btn" id="heroAiBtn" onclick="navigate('ai')">✦ AI Creative Studio</button>
+          <button class="btn" id="heroSettingsBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span data-i18n="configureAI">Configure AI</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-title" data-i18n="quickStart">Quick start</div>
+      <div class="grid-cards">
+        <button class="tile" id="quickUpload">
+          <div class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg></div>
+          <h3 data-i18n="quickUploadT">Import a skin</h3>
+          <p data-i18n="quickUploadD">Load a PNG from your computer to begin.</p>
+        </button>
+        <button class="tile" id="quickStyle">
+          <div class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18 4.5 4.5 0 0 0 0-9 4.5 4.5 0 0 1 0-9z"/></svg></div>
+          <h3 data-i18n="quickStyleT">Pick a style</h3>
+          <p data-i18n="quickStyleD">Choose from 8 anime art directions.</p>
+        </button>
+        <button class="tile" id="quickGenerate">
+          <div class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-5 4.1L16.5 20 12 16.6 7.5 20 9 14.1 4 10l6.1-1.2z"/></svg></div>
+          <h3 data-i18n="quickGenT">Generate</h3>
+          <p data-i18n="quickGenD">Create an anime profile with your AI.</p>
+        </button>
+      </div>
+
+      <div class="section-title" data-i18n="recentProjects">Recent projects</div>
+      <div id="recentList" class="history-list"></div>
+    </section>
+
+    <!-- ============ STUDIO VIEW ============ -->
+    <section class="view" id="view-studio">
+      <div class="studio">
+
+        <!-- LEFT COLUMN: upload + preview -->
+        <div class="panel-stack">
+
+          <div class="card">
+            <div class="card-head">
+              <h2 data-i18n="skinImport">Skin import</h2>
+              <span class="badge" data-i18n="pngBadge">PNG</span>
+            </div>
+
+            <div class="dropzone" id="dropzone">
+              <input type="file" id="fileInput" accept="image/png" hidden>
+              <div id="dzEmpty">
+                <div class="dz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg></div>
+                <p class="dz-title" data-i18n="dropTitle">Drop your Minecraft skin here</p>
+                <p class="dz-sub" data-i18n="dropSub">64×64 or 64×32 · PNG</p>
+                <button class="btn primary sm" id="browseBtn" data-i18n="browse">Browse files</button>
+              </div>
+
+              <div class="hidden" id="dzFilled" style="text-align:start;">
+                <div class="preview-stage" id="previewStage">
+                  <div class="checker"></div>
+                  <canvas class="preview-canvas" id="previewCanvas" width="352" height="704"></canvas>
+                </div>
+                <div class="preview-toolbar">
+                  <button class="btn sm" id="zoomOutBtn" title="Zoom out">−</button>
+                  <button class="btn sm" id="zoomInBtn" title="Zoom in">+</button>
+                  <button class="btn sm" id="rotateBtn" title="Rotate">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+                  </button>
+                  <button class="btn sm" id="resetPreviewBtn" title="Reset" data-i18n="reset">Reset</button>
+                  <span class="spacer"></span>
+                  <button class="btn sm" id="replaceBtn" data-i18n="replace">Replace</button>
+                  <button class="btn sm danger" id="removeBtn" data-i18n="remove">Remove</button>
+                </div>
+                <div class="preview-info">
+                  <span class="filename" id="filenameInfo">—</span>
+                  <span><strong id="dimInfo">—</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <p class="help" style="margin-top:12px;font-size:11.5px;color:var(--muted-2);line-height:1.55;" data-i18n="uploadHint">
+              Your skin stays on this computer and is only sent to the AI provider you configure.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h2 data-i18n="providerTitle">AI provider</h2>
+              <span class="spacer"></span>
+              <button class="btn sm" id="openSettingsBtn" data-i18n="edit">Edit</button>
+            </div>
+            <div id="providerSummary" class="help" style="font-size:12px;color:var(--muted);line-height:1.6;"></div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: options + results -->
+        <div class="panel-stack">
+
+          <div class="card">
+            <div class="card-head">
+              <h2 data-i18n="genSettings">Generation settings</h2>
+              <span class="spacer"></span>
+              <span class="badge" data-i18n="accuracyBadge">Accuracy first</span>
+            </div>
+
+            <div class="field">
+              <span class="lbl" data-i18n="artStyle">Art style</span>
+              <div class="chips" id="chips-style"></div>
+            </div>
+
+            <div class="field">
+              <span class="lbl" data-i18n="background">Background</span>
+              <div class="chips" id="chips-background"></div>
+              <div id="customBgWrap" class="hidden" style="margin-top:10px;">
+                <label class="field" style="margin-bottom:0;">
+                  <span class="lbl" data-i18n="customBgLabel">Custom background description</span>
+                  <input type="text" id="customBgInput" data-i18n-ph="customBgPh" placeholder="e.g. neon cyberpunk street at night">
+                </label>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <span class="lbl" data-i18n="lighting">Lighting</span>
+                <select id="select-lighting"></select>
+              </div>
+              <div class="field">
+                <span class="lbl" data-i18n="pose">Character position</span>
+                <select id="select-pose"></select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <span class="lbl" data-i18n="quality">Image quality</span>
+                <select id="select-quality"></select>
+              </div>
+              <div class="field">
+                <span class="lbl" data-i18n="variations">Variations</span>
+                <select id="select-count"></select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <span class="lbl" data-i18n="strength">Image strength</span>
+                <input type="range" id="range-strength" min="0.1" max="1" step="0.05" value="0.85">
+                <span class="help" id="strengthVal" style="font-family:var(--font-mono);">0.85</span>
+              </div>
+              <div class="field">
+                <span class="lbl" data-i18n="styleStrength">Style strength</span>
+                <input type="range" id="range-styleStrength" min="0" max="1" step="0.05" value="0.7">
+                <span class="help" id="styleStrengthVal" style="font-family:var(--font-mono);">0.70</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="lbl" data-i18n="promptLabel">Prompt (editable)</span>
+              <textarea id="promptArea" rows="6" spellcheck="false"></textarea>
+              <span class="help" data-i18n="promptHelp">This prompt is generated from your skin and settings. You can edit it before generating.</span>
+            </div>
+
+            <div class="field">
+              <span class="lbl" data-i18n="negativeLabel">Negative prompt</span>
+              <textarea id="negativeArea" rows="3" spellcheck="false"></textarea>
+            </div>
+
+            <div class="preview-toolbar" style="margin-top:4px;">
+              <button class="btn sm" id="resetPromptBtn" data-i18n="resetPrompt">Reset prompt</button>
+              <span class="spacer"></span>
+              <button class="btn sm" id="copyPromptBtn" data-i18n="copyPrompt">Copy prompt</button>
+            </div>
+
+            <button class="btn primary" id="generateBtn" style="width:100%;margin-top:16px;padding:13px 20px;font-size:14px;border-radius:12px;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-5 4.1L16.5 20 12 16.6 7.5 20 9 14.1 4 10l6.1-1.2z"/></svg>
+              <span id="genBtnLabel" data-i18n="generate">Generate profile</span>
+            </button>
+
+            <div class="progress-wrap hidden" id="progressWrap">
+              <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+              <div class="progress-text">
+                <span id="progressLabel">—</span>
+                <span id="progressPct">0%</span>
+              </div>
+            </div>
+
+            <div id="genAlert" style="margin-top:14px;"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h2 data-i18n="resultsTitle">Result</h2>
+              <span class="spacer"></span>
+              <span class="badge" id="resultsCount">0</span>
+            </div>
+
+            <div class="results-stage">
+              <div class="result-frame compare-wrap" id="compareFrame" style="--split:50%">
+                <img class="before" id="compareBefore" alt="reference" style="display:none">
+                <img class="after" id="compareAfter" alt="generated" style="display:none">
+                <div class="compare-line" id="compareLine" style="display:none"></div>
+                <div class="placeholder" id="comparePlaceholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+                  <div data-i18n="noResultYet">No result yet</div>
+                </div>
+              </div>
+
+              <div class="result-frame">
+                <img id="thumbSelected" alt="selected result" style="display:none">
+                <div class="placeholder" id="thumbPlaceholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+                  <div data-i18n="thumbnailHint">Select a result</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-row">
+              <span data-i18n="compare">Compare</span>
+              <input type="range" id="compareSlider" min="0" max="100" value="50">
+            </div>
+
+            <div class="result-actions">
+              <button class="btn sm" id="openEditorBtn" data-i18n="openEditor">Open editor</button>
+              <button class="btn sm" id="regenBtn" data-i18n="regenerate">Regenerate</button>
+              <button class="btn sm" id="downloadBtn" data-i18n="download">Download</button>
+              <button class="btn sm danger" id="deleteResultBtn" data-i18n="delete">Delete</button>
+            </div>
+
+            <div id="resultsGallery" class="results-stage" style="margin-top:14px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AI CREATIVE PLATFORM ============ -->
+    <section class="view" id="view-ai" dir="rtl">
+      <div class="ai-hero">
+        <div>
+          <div class="ai-eyebrow">MKGT / GENERATIVE LAB</div>
+          <h2>استودیوی خلاقیت هوش مصنوعی</h2>
+          <p>پرامپتت رو بنویس، نوع خروجی رو انتخاب کن و با سرویس متناسب تولیدش کن.</p>
+        </div>
+        <span class="ai-live"><i></i> MULTI-PROVIDER WORKSPACE</span>
+      </div>
+
+      <div class="ai-layout">
+        <div class="card ai-controls">
+          <div class="card-head"><h2>ساخت محتوای جدید</h2><span class="badge">PROMPT TO CREATION</span></div>
+          <label class="field"><span class="lbl">نوع خروجی</span>
+            <select id="aiType">
+              <option value="image">🖼️ تصویر و طراحی</option>
+              <option value="video">🎬 ویدئو و انیمیشن</option>
+              <option value="text">✍️ متن و ایده‌پردازی</option>
+              <option value="code">💻 کدنویسی و وب‌سایت</option>
+              <option value="music">🔊 گفتار و تبدیل متن به صدا</option>
+              <option value="3d">🧊 مدل سه‌بعدی</option>
+            </select>
+          </label>
+          <label class="field"><span class="lbl">پرامپت / توضیحات</span>
+            <textarea id="aiPrompt" rows="6" placeholder="مثلاً: یک پوستر گیمینگ سینمایی برای سرور Minecraft با نور نئونی آبی و بنفش، کیفیت بالا..."></textarea>
+          </label>
+          <div class="field-row" id="aiImageOptions">
+            <label class="field"><span class="lbl">نسبت تصویر</span><select id="aiRatio"><option value="1:1">1:1 مربع</option><option value="16:9">16:9 افقی</option><option value="9:16">9:16 استوری</option><option value="4:5">4:5 پست</option></select></label>
+            <label class="field"><span class="lbl">کیفیت</span><select id="aiQuality"><option value="standard">استاندارد</option><option value="high">بالا</option></select></label>
+          </div>
+          <div class="field-row" id="aiVideoOptions" hidden>
+            <label class="field"><span class="lbl">مدت ویدئو</span><select id="aiDuration"><option value="5">۵ ثانیه</option><option value="10" selected>۱۰ ثانیه</option><option value="15">۱۵ ثانیه</option></select></label>
+            <label class="field"><span class="lbl">نسبت تصویر</span><select id="aiVideoRatio"><option value="16:9">16:9 افقی</option><option value="9:16">9:16 عمودی</option><option value="1:1">1:1 مربع</option></select></label>
+          </div>
+          <label class="field"><span class="lbl">سرویس تولید</span>
+            <select id="aiProvider">
+              <option value="auto">انتخاب خودکار (پیشنهادی)</option>
+              <option value="puter">Puter AI — تصویر و متن</option>
+              <option value="custom">سرویس اختصاصی / API من</option>
+            </select>
+            <small class="help" id="aiProviderHelp">انتخاب خودکار: Puter برای تصویر، متن، ویدئو و گفتار؛ Gateway برای موسیقی واقعی و سه‌بعدی.</small>
+          </label>
+          <div id="aiCustomConfig" class="ai-custom-config" hidden>
+            <label class="field"><span class="lbl">آدرس API یا Proxy</span><input id="aiEndpoint" type="url" placeholder="https://your-server.example/api/generate"></label>
+            <label class="field"><span class="lbl">کلید دسترسی (اختیاری)</span><input id="aiApiKey" type="password" autocomplete="off" placeholder="کلید را فقط در صورت اعتماد به سرور وارد کن"></label>
+            <div class="alert warn"><span class="msg">Gateway باید درخواست JSON با فیلد task و prompt بپذیرد و یکی از فیلدهای url / video_url / image_url / audio_url / text را برگرداند. کلیدهای اصلی سرویس‌ها را فقط روی سرور نگه دار؛ داخل HTML عمومی قرار نده.</span></div>
+          </div>
+          <label class="field"><span class="lbl">تصویر مرجع (اختیاری)</span><input id="aiReference" type="file" accept="image/*,video/*"></label>
+          <div id="aiReferenceName" class="ai-ref-name">هنوز فایلی انتخاب نشده</div>
+          <button class="btn primary ai-generate" id="aiGenerateBtn"><span>✦</span> شروع تولید</button>
+          <div class="ai-note">Puter می‌تواند تصویر، متن، ویدئو و گفتار تولید کند. هر تولید واقعی ممکن است از اعتبار حساب Puter استفاده کند؛ حالت رایگان تضمین‌شده نیست. موسیقی واقعی و مدل سه‌بعدی به Gateway جداگانه نیاز دارند.</div>
+        </div>
+
+        <div class="card ai-output-card">
+          <div class="card-head"><h2>خروجی استودیو</h2><span class="badge" id="aiOutputStatus">READY</span></div>
+          <div id="aiOutput" class="ai-output">
+            <div class="ai-empty"><div class="ai-empty-icon">✧</div><strong>ایده‌ات رو به واقعیت تبدیل کن</strong><span>بعد از تولید، نتیجه اینجا نمایش داده می‌شود.</span></div>
+          </div>
+          <div class="ai-output-actions" id="aiOutputActions" hidden>
+            <button class="btn sm" id="aiDownloadBtn">دانلود خروجی</button>
+            <button class="btn sm" id="aiCopyBtn">کپی متن</button>
+          </div>
+          <div class="ai-provider-status" id="aiStatusText">سرویس آماده انتخاب است.</div>
+        </div>
+      </div>
+
+      <div class="card ai-history-card">
+        <div class="card-head"><h2>آخرین خروجی‌های استودیو</h2><button class="btn sm" id="aiClearHistory">پاک کردن فهرست</button></div>
+        <div id="aiHistoryList" class="ai-history-list"><span class="help">هنوز خروجی جدیدی ثبت نشده است.</span></div>
+      </div>
+    </section>
+
+    <!-- ============ HISTORY VIEW ============ -->
+    <section class="view" id="view-history">
+      <div class="card">
+        <div class="card-head">
+          <h2 data-i18n="historyTitle">Project history</h2>
+          <span class="spacer"></span>
+          <button class="btn sm danger" id="clearHistoryBtn" data-i18n="clearHistory">Clear history</button>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ SETTINGS VIEW ============ -->
+    <section class="view" id="view-settings">
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="settingsTitle">Settings</h2></div>
+
+        <div class="section-title" data-i18n="apiSection">AI provider</div>
+        <div class="alert info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span class="msg" data-i18n="apiIntro">Configure a real image-to-image provider. Requests are made directly from this browser. No backend is used.</span>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span class="lbl" data-i18n="provider">Provider</span>
+            <select id="cfgProvider">
+              <option value="puter">Puter — sign in, no API key</option>
+              <option value="openai">OpenAI — images/edits</option>
+              <option value="stability">Stability AI — SD3 image-to-image</option>
+              <option value="custom">Custom JSON endpoint</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="lbl" data-i18n="model">Model</span>
+            <input type="text" id="cfgModel" spellcheck="false" placeholder="gpt-image-1">
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="lbl" data-i18n="endpoint">Endpoint URL</span>
+          <input type="url" id="cfgEndpoint" spellcheck="false" placeholder="https://api.openai.com/v1/images/edits">
+        </label>
+
+        <label class="field">
+          <span class="lbl" data-i18n="apiKey">API key</span>
+          <input type="password" id="cfgKey" spellcheck="false" autocomplete="off" placeholder="sk-…">
+        </label>
+
+        <label class="field">
+          <span class="lbl" data-i18n="timeoutLabel">Request timeout (seconds)</span>
+          <input type="number" id="cfgTimeout" min="10" max="600" value="180">
+        </label>
+
+        <label class="toggle" style="margin-bottom:14px;">
+          <input type="checkbox" id="cfgRemember">
+          <span class="toggle-track"></span>
+          <span data-i18n="rememberKey">Remember API key on this device</span>
+        </label>
+
+        <div class="alert warn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+          <span class="msg" data-i18n="corsWarn">The provider must allow browser (CORS) requests. If you see a network error, use a provider or a proxy that permits CORS.</span>
+        </div>
+
+        <div class="section-title" data-i18n="appearanceSection">Appearance &amp; language</div>
+        <div class="field-row">
+          <label class="field">
+            <span class="lbl" data-i18n="language">Language</span>
+            <select id="cfgLanguage">
+              <option value="en">English</option>
+              <option value="fa">فارسی (Persian)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="lbl" data-i18n="themeLabel">Theme</span>
+            <select id="cfgTheme">
+              <option value="dark">Dark (default)</option>
+              <option value="gaming">Gaming — Animated neon</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="section-title" data-i18n="dataSection">Local data</div>
+        <div class="preview-toolbar">
+          <button class="btn sm danger" id="clearLocalBtn" data-i18n="clearLocal">Clear all local data</button>
+          <button class="btn sm" id="resetSettingsBtn" data-i18n="resetSettings">Reset settings</button>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn" id="settingsCancelBtn" data-i18n="cancel">Cancel</button>
+          <button class="btn primary" id="settingsSaveBtn" data-i18n="save">Save</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT VIEW ============ -->
+    <section class="view" id="view-about">
+      <div class="card">
+        <div class="card-head"><h2 data-i18n="aboutTitle">About MKGT STUDIO</h2></div>
+        <p style="color:var(--text-2);line-height:1.7;font-size:13.5px;" data-i18n="aboutBody">
+          MKGT STUDIO is a multi-output AI creative workspace. Image and text generation can use Puter where available; video, audio, and 3D outputs require a compatible external API or secure backend proxy.
+        </p>
+        <div class="section-title">Version</div>
+        <div class="preview-info"><span>Version</span><strong>2.0.0</strong></div>
+        <div class="preview-info"><span>Storage</span><strong>LocalStorage (this device)</strong></div>
+        <div class="preview-info"><span>Backend</span><strong>None (browser only)</strong></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- MKGT STUDIO animated startup loader -->
+<div id="startupLoader" role="status" aria-label="Loading MKGT STUDIO">
+  <div class="loader-content">
+    <div class="loader-emblem">MK</div>
+    <div class="loader-title">MKGT STUDIO</div>
+    <div class="loader-sub">MINECRAFT CREATIVE LAB</div>
+    <div class="loader-track"><div class="loader-fill"></div></div>
+    <div class="loader-status" data-i18n="loadingStudio">INITIALIZING STUDIO...</div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     EDITOR MODAL
+     ========================================================================= -->
+<div class="modal" id="editorModal">
+  <div class="modal-card wide">
+    <div class="modal-head">
+      <h2 data-i18n="editorTitle">Image editor</h2>
+      <span class="spacer"></span>
+      <button class="icon-btn" data-close="editorModal" aria-label="Close">✕</button>
+    </div>
+
+    <div class="editor-stage" id="editorStage">
+      <div class="editor-inner" id="editorInner">
+        <img id="editorBefore" alt="reference" style="display:none">
+        <img id="editorAfter" alt="result">
+      </div>
+    </div>
+
+    <div class="slider-row">
+      <span data-i18n="compare">Compare</span>
+      <input type="range" id="editorCompare" min="0" max="100" value="50">
+    </div>
+    <div class="slider-row">
+      <span data-i18n="zoom">Zoom</span>
+      <input type="range" id="editorZoom" min="100" max="300" value="100">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn" data-close="editorModal" data-i18n="cancel">Cancel</button>
+      <button class="btn primary" id="editorDownloadBtn" data-i18n="downloadPNG">Download PNG</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     TOAST STACK
+     ========================================================================= -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="https://js.puter.com/v2/"></script>
+<script>
+"use strict";
+/* =========================================================================
+   MKGT STUDIO — Application script
+   -------------------------------------------------------------------------
+   Table of contents
+     1.  i18n dictionary
+     2.  Option definitions
+     3.  Utilities (DOM, events, ids, formatting)
+     4.  State + persistence
+     5.  Toast notifications
+     6.  Navigation
+     7.  Minecraft skin normaliser + renderer
+     8.  Skin colour analysis
+     9.  Prompt builder
+     10. AI provider layer
+     11. Generation pipeline
+     12. Results UI
+     13. Editor modal
+     14. History / projects
+     15. Settings
+     16. i18n apply + bootstrap
+   ========================================================================= */
+
+
+/* =========================================================================
+   1. i18n
+   ========================================================================= */
+const I18N = {
+  en: {
+    brandSub: "Skin → Anime",
+    navDashboard: "Dashboard",
+    navStudio: "Studio",
+    navAIStudio: "AI Creative Studio",
+    navHistory: "History",
+    navSettings: "Settings",
+    navAbout: "About",
+    navLabelSystem: "System",
+    crumbRoot: "MKGT STUDIO",
+    statusReady: "Ready",
+    localOnly: "Local only",
+    newProject: "New Project",
+    localBadge: "LOCAL",
+
+    heroTitle: "Turn your Minecraft skin into anime art.",
+    heroSub: "Import a 64×64 or 64×32 PNG skin, choose a style, and generate a high-quality anime profile picture with your own AI provider.",
+    openStudio: "Open Studio",
+    configureAI: "Configure AI",
+
+    quickStart: "Quick start",
+    quickUploadT: "Import a skin",
+    quickUploadD: "Load a PNG from your computer to begin.",
+    quickStyleT: "Pick a style",
+    quickStyleD: "Choose from 8 anime art directions.",
+    quickGenT: "Generate",
+    quickGenD: "Create an anime profile with your AI.",
+
+    recentProjects: "Recent projects",
+
+    skinImport: "Skin import",
+    pngBadge: "PNG",
+    dropTitle: "Drop your Minecraft skin here",
+    dropSub: "64×64 or 64×32 · PNG",
+    browse: "Browse files",
+    reset: "Reset",
+    replace: "Replace",
+    remove: "Remove",
+    uploadHint: "Your skin stays on this computer and is only sent to the AI provider you configure.",
+
+    providerTitle: "AI provider",
+    edit: "Edit",
+
+    genSettings: "Generation settings",
+    accuracyBadge: "Accuracy first",
+    artStyle: "Art style",
+    background: "Background",
+    customBgLabel: "Custom background description",
+    customBgPh: "e.g. neon cyberpunk street at night",
+    lighting: "Lighting",
+    pose: "Character position",
+    quality: "Image quality",
+    variations: "Variations",
+    strength: "Image strength",
+    styleStrength: "Style strength",
+    promptLabel: "Prompt (editable)",
+    promptHelp: "This prompt is generated from your skin and settings. You can edit it before generating.",
+    negativeLabel: "Negative prompt",
+    resetPrompt: "Reset prompt",
+    copyPrompt: "Copy prompt",
+    generate: "Generate profile",
+    generating: "Generating…",
+
+    resultsTitle: "Result",
+    noResultYet: "No result yet",
+    thumbnailHint: "Select a result",
+    compare: "Compare",
+    openEditor: "Open editor",
+    regenerate: "Regenerate",
+    download: "Download",
+    delete: "Delete",
+
+    historyTitle: "Project history",
+    clearHistory: "Clear history",
+
+    settingsTitle: "Settings",
+    apiSection: "AI provider",
+    apiIntro: "Configure a real image-to-image provider. Requests are made directly from this browser. No backend is used.",
+    provider: "Provider",
+    model: "Model",
+    endpoint: "Endpoint URL",
+    apiKey: "API key",
+    timeoutLabel: "Request timeout (seconds)",
+    rememberKey: "Remember API key on this device",
+    corsWarn: "The provider must allow browser (CORS) requests. If you see a network error, use a provider or a proxy that permits CORS.",
+    appearanceSection: "Appearance & language",
+    language: "Language",
+    themeLabel: "Theme",
+    loadingStudio: "INITIALIZING STUDIO...",
+    dataSection: "Local data",
+    clearLocal: "Clear all local data",
+    resetSettings: "Reset settings",
+    cancel: "Cancel",
+    save: "Save",
+
+    aboutTitle: "About MKGT STUDIO",
+    aboutBody: "MKGT STUDIO is a multi-output AI creative workspace. Image and text generation can use Puter where available; video, audio, and 3D outputs require a compatible external API or secure backend proxy.",
+
+    editorTitle: "Image editor",
+    zoom: "Zoom",
+    downloadPNG: "Download PNG",
+
+    /* toasts */
+    toastSkinLoaded: "Skin loaded successfully.",
+    toastSkinRemoved: "Skin removed.",
+    toastSettingsSaved: "Settings saved.",
+    toastCopied: "Prompt copied to clipboard.",
+    toastCopyFailed: "Could not copy to clipboard.",
+    toastNoResult: "No result selected.",
+    toastDeleted: "Result deleted.",
+    toastHistoryCleared: "History cleared.",
+    toastDataCleared: "All local data cleared.",
+    toastReset: "Settings reset to defaults.",
+    toastDownloaded: "Image downloaded.",
+    toastPromptReset: "Prompt regenerated from skin.",
+
+    /* errors */
+    errFileType: "Please choose a PNG image file.",
+    errFileEmpty: "The selected file is empty.",
+    errFileRead: "The file could not be read.",
+    errImageLoad: "The image could not be loaded. The file may be corrupted.",
+    errBadDimensions: "Invalid skin dimensions. Use a 64×64 or 64×32 PNG.",
+    errNeedSkin: "Please import a Minecraft skin first.",
+    errNeedConfig: "No AI provider is configured. Open Settings, enter an endpoint and an API key, then try again.",
+    errNoImage: "The provider responded, but no image was returned. Check the model and endpoint.",
+    errHttp: "The provider returned an error ({status}): {msg}",
+    errNetwork: "Network request failed. This is usually a CORS restriction or an unreachable endpoint.",
+    errTimeout: "The request timed out after {sec} seconds.",
+    errAborted: "Generation was cancelled.",
+    errImageRender: "The generated image could not be displayed.",
+    errDownload: "This image cannot be exported (cross-origin restriction). Use a provider that returns base64 image data."
+  },
+
+  fa: {
+    brandSub: "اسکین → انیمه",
+    navDashboard: "داشبورد",
+    navStudio: "استودیو",
+    navAIStudio: "استودیوی هوش مصنوعی",
+    navHistory: "تاریخچه",
+    navSettings: "تنظیمات",
+    navAbout: "درباره",
+    navLabelSystem: "سیستم",
+    crumbRoot: "MKGT STUDIO",
+    statusReady: "آماده",
+    localOnly: "فقط محلی",
+    newProject: "پروژه جدید",
+    localBadge: "محلی",
+
+    heroTitle: "اسکین ماینکرفت خود را به هنر انیمه تبدیل کنید.",
+    heroSub: "یک اسکین PNG با ابعاد ۶۴×۶۴ یا ۶۴×۳۲ وارد کنید، سبک را انتخاب کنید و با سرویس هوش مصنوعی خود یک تصویر پروفایل انیمه با کیفیت بسازید.",
+    openStudio: "ورود به استودیو",
+    configureAI: "تنظیم هوش مصنوعی",
+
+    quickStart: "شروع سریع",
+    quickUploadT: "وارد کردن اسکین",
+    quickUploadD: "یک فایل PNG از کامپیوتر خود بارگذاری کنید.",
+    quickStyleT: "انتخاب سبک",
+    quickStyleD: "از میان ۸ سبک هنری انیمه انتخاب کنید.",
+    quickGenT: "ساخت تصویر",
+    quickGenD: "با هوش مصنوعی خود پروفایل انیمه بسازید.",
+
+    recentProjects: "پروژه‌های اخیر",
+
+    skinImport: "ورود اسکین",
+    pngBadge: "PNG",
+    dropTitle: "اسکین ماینکرفت را اینجا رها کنید",
+    dropSub: "۶۴×۶۴ یا ۶۴×۳۲ · PNG",
+    browse: "انتخاب فایل",
+    reset: "بازنشانی",
+    replace: "تعویض",
+    remove: "حذف",
+    uploadHint: "اسکین شما روی همین کامپیوتر می‌ماند و فقط به سرویس هوش مصنوعی تنظیم‌شده ارسال می‌شود.",
+
+    providerTitle: "سرویس هوش مصنوعی",
+    edit: "ویرایش",
+
+    genSettings: "تنظیمات تولید",
+    accuracyBadge: "اولویت با دقت",
+    artStyle: "سبک هنری",
+    background: "پس‌زمینه",
+    customBgLabel: "توضیح پس‌زمینه سفارشی",
+    customBgPh: "مثلاً: خیابان سایبرپانک با نور نئون در شب",
+    lighting: "نورپردازی",
+    pose: "ژست کاراکتر",
+    quality: "کیفیت تصویر",
+    variations: "تعداد خروجی",
+    strength: "قدرت تصویر",
+    styleStrength: "قدرت سبک",
+    promptLabel: "پرامپت (قابل ویرایش)",
+    promptHelp: "این پرامپت از اسکین و تنظیمات شما ساخته می‌شود. پیش از تولید می‌توانید آن را ویرایش کنید.",
+    negativeLabel: "پرامپت منفی",
+    resetPrompt: "بازنشانی پرامپت",
+    copyPrompt: "کپی پرامپت",
+    generate: "ساخت پروفایل",
+    generating: "در حال ساخت…",
+
+    resultsTitle: "نتیجه",
+    noResultYet: "هنوز نتیجه‌ای نیست",
+    thumbnailHint: "یک نتیجه را انتخاب کنید",
+    compare: "مقایسه",
+    openEditor: "ویرایشگر",
+    regenerate: "ساخت دوباره",
+    download: "دانلود",
+    delete: "حذف",
+
+    historyTitle: "تاریخچه پروژه‌ها",
+    clearHistory: "پاک کردن تاریخچه",
+
+    settingsTitle: "تنظیمات",
+    apiSection: "سرویس هوش مصنوعی",
+    apiIntro: "یک سرویس واقعی تصویر‌به‌تصویر تنظیم کنید. درخواست‌ها مستقیماً از این مرورگر ارسال می‌شوند و هیچ سروری در کار نیست.",
+    provider: "سرویس‌دهنده",
+    model: "مدل",
+    endpoint: "آدرس Endpoint",
+    apiKey: "کلید API",
+    timeoutLabel: "زمان انتظار (ثانیه)",
+    rememberKey: "ذخیره کلید API روی این دستگاه",
+    corsWarn: "سرویس‌دهنده باید درخواست‌های مرورگر (CORS) را مجاز کند. در صورت خطای شبکه از سرویس یا پراکسی سازگار استفاده کنید.",
+    appearanceSection: "ظاهر و زبان",
+    language: "زبان",
+    themeLabel: "پوسته",
+    loadingStudio: "در حال آماده‌سازی استودیو...",
+    dataSection: "داده‌های محلی",
+    clearLocal: "پاک کردن همه داده‌های محلی",
+    resetSettings: "بازنشانی تنظیمات",
+    cancel: "انصراف",
+    save: "ذخیره",
+
+    aboutTitle: "درباره MKGT STUDIO",
+    aboutBody: "MKGT STUDIO یک برنامه محلی تک‌فایلی برای تبدیل اسکین ماینکرفت به تصویر پروفایل انیمه است. کاملاً در مرورگر اجرا می‌شود و از سرویس هوش مصنوعی خودتان استفاده می‌کند. هیچ داده‌ای از این کامپیوتر خارج نمی‌شود مگر تصویر مرجع و پرامپتی که خودتان به سرویس ارسال می‌کنید.",
+
+    editorTitle: "ویرایشگر تصویر",
+    zoom: "بزرگ‌نمایی",
+    downloadPNG: "دانلود PNG",
+
+    toastSkinLoaded: "اسکین با موفقیت بارگذاری شد.",
+    toastSkinRemoved: "اسکین حذف شد.",
+    toastSettingsSaved: "تنظیمات ذخیره شد.",
+    toastCopied: "پرامپت در کلیپ‌بورد کپی شد.",
+    toastCopyFailed: "کپی در کلیپ‌بورد ممکن نشد.",
+    toastNoResult: "هیچ نتیجه‌ای انتخاب نشده است.",
+    toastDeleted: "نتیجه حذف شد.",
+    toastHistoryCleared: "تاریخچه پاک شد.",
+    toastDataCleared: "همه داده‌های محلی پاک شد.",
+    toastReset: "تنظیمات به حالت پیش‌فرض بازگشت.",
+    toastDownloaded: "تصویر دانلود شد.",
+    toastPromptReset: "پرامپت از روی اسکین بازسازی شد.",
+
+    errFileType: "لطفاً یک فایل تصویری PNG انتخاب کنید.",
+    errFileEmpty: "فایل انتخاب‌شده خالی است.",
+    errFileRead: "خواندن فایل ممکن نشد.",
+    errImageLoad: "بارگذاری تصویر ممکن نشد. ممکن است فایل خراب باشد.",
+    errBadDimensions: "ابعاد اسکین معتبر نیست. از PNG با ابعاد ۶۴×۶۴ یا ۶۴×۳۲ استفاده کنید.",
+    errNeedSkin: "ابتدا یک اسکین ماینکرفت وارد کنید.",
+    errNeedConfig: "هیچ سرویس هوش مصنوعی تنظیم نشده است. تنظیمات را باز کنید، آدرس و کلید API را وارد کنید و دوباره تلاش کنید.",
+    errNoImage: "سرویس پاسخ داد اما تصویری برنگرداند. مدل و آدرس را بررسی کنید.",
+    errHttp: "سرویس خطا برگرداند ({status}): {msg}",
+    errNetwork: "درخواست شبکه ناموفق بود. معمولاً به دلیل محدودیت CORS یا آدرس نامعتبر است.",
+    errTimeout: "درخواست پس از {sec} ثانیه منقضی شد.",
+    errAborted: "تولید لغو شد.",
+    errImageRender: "تصویر ساخته‌شده قابل نمایش نیست.",
+    errDownload: "این تصویر قابل دانلود نیست (محدودیت دامنه). سرویسی انتخاب کنید که خروجی base64 می‌دهد."
+  }
+};
+
+/* =========================================================================
+   2. OPTION DEFINITIONS
+   ========================================================================= */
+const OPTIONS = {
+  style: [
+    { v:"japaneseAnime", en:"Japanese Anime", fa:"انیمه ژاپنی", p:"modern Japanese anime illustration, clean cel shading, crisp line art, expressive eyes, vibrant colours" },
+    { v:"realisticAnime", en:"Realistic Anime", fa:"انیمه واقع‌گرا", p:"realistic anime style, detailed soft shading, semi-3D anime rendering, refined proportions" },
+    { v:"semiRealistic", en:"Semi-Realistic", fa:"نیمه‌واقع‌گرا", p:"semi-realistic digital painting, realistic proportions, soft skin shading, painterly detail" },
+    { v:"manga", en:"Manga", fa:"مانگا", p:"black and white manga illustration, screentone shading, precise ink line art, dramatic contrast" },
+    { v:"darkAnime", en:"Dark Anime", fa:"انیمه تاریک", p:"dark anime style, moody atmosphere, high contrast shadows, desaturated palette, dramatic" },
+    { v:"cinematicAnime", en:"Cinematic Anime", fa:"انیمه سینمایی", p:"cinematic anime key art, dramatic composition, film-grade colour grading, volumetric light" },
+    { v:"anime3d", en:"3D Anime", fa:"انیمه سه‌بعدی", p:"high quality 3D anime character render, subsurface scattering, clean studio lighting" },
+    { v:"minimalAnime", en:"Minimal Anime", fa:"انیمه مینیمال", p:"minimal anime illustration, limited palette, clean shapes, subtle shading, elegant composition" }
+  ],
+  background: [
+    { v:"solidBlack", en:"Solid Black", fa:"مشکی یکدست", p:"a plain solid black background" },
+    { v:"darkNavy", en:"Dark Navy", fa:"سرمه‌ای تیره", p:"a deep dark navy blue background with a subtle vignette gradient" },
+    { v:"white", en:"Pure White", fa:"سفید خالص", p:"a clean plain pure white background" },
+    { v:"transparent", en:"Transparent", fa:"شفاف", p:"a fully transparent background with an isolated character cutout" },
+    { v:"customColor", en:"Custom Colour", fa:"رنگ سفارشی", p:"a flat custom colour background" },
+    { v:"simpleMinecraft", en:"Simple Minecraft", fa:"ماینکرفت ساده", p:"a simple Minecraft world background with soft blocky voxel scenery and gentle depth of field" }
+  ],
+  lighting: [
+    { v:"naturalStudio", en:"Natural Studio Lighting", fa:"نور استودیوی طبیعی", p:"natural studio lighting with soft ambient fill and a gentle key light" },
+    { v:"soft", en:"Soft Lighting", fa:"نور نرم", p:"soft diffused lighting, gentle gradients, no harsh shadows" },
+    { v:"cinematicLight", en:"Cinematic Lighting", fa:"نور سینمایی", p:"cinematic lighting, dramatic rim light, volumetric atmosphere" },
+    { v:"neutralWhite", en:"Neutral White Lighting", fa:"نور سفید خنثی", p:"neutral white balanced lighting, even exposure, colour-accurate" },
+    { v:"dramatic", en:"Dramatic Lighting", fa:"نور دراماتیک", p:"dramatic chiaroscuro lighting, strong directional shadows, bold highlights" }
+  ],
+  pose: [
+    { v:"lookingAtCamera", en:"Looking Directly at Camera", fa:"نگاه مستقیم به دوربین", p:"character looking directly at the camera, symmetrical framing, eyes to viewer" },
+    { v:"frontView", en:"Front View", fa:"نمای روبرو", p:"front view of the character, body facing the viewer" },
+    { v:"threeQuarter", en:"Three-Quarter View", fa:"نمای سه‌چهارم", p:"three-quarter view of the character, slight body turn, eyes to viewer" },
+    { v:"sideView", en:"Side View", fa:"نمای از پهلو", p:"side profile view of the character" },
+    { v:"headShoulders", en:"Head and Shoulders", fa:"سر و شانه", p:"head and shoulders framing, close portrait crop" },
+    { v:"upperBody", en:"Upper Body", fa:"نیم‌تنه", p:"upper body shot, head and torso clearly visible" }
+  ],
+  quality: [
+    { v:"1024", en:"1024 × 1024", fa:"۱۰۲۴ × ۱۰۲۴" },
+    { v:"1536", en:"1536 × 1536", fa:"۱۵۳۶ × ۱۵۳۶" },
+    { v:"2048", en:"2048 × 2048", fa:"۲۰۴۸ × ۲۰۴۸" }
+  ]
+};
+
+const COUNT_OPTIONS = [1, 2, 3, 4];
+
+const PROVIDER_DEFAULTS = {
+  puter:     { endpoint: "", model: "gpt-image-2.6-flare" },
+  openai:    { endpoint: "https://api.openai.com/v1/images/edits", model: "gpt-image-1" },
+  stability: { endpoint: "https://api.stability.ai/v2beta/stable-image/generate/sd3", model: "sd3.5-large" },
+  custom:    { endpoint: "", model: "" }
+};
+
+const DEFAULT_NEGATIVE = "different character, different outfit, wrong colors, missing accessories, extra accessories, extra limbs, deformed hands, blurry, low quality, watermark, text, signature, logo, duplicate character, mismatched clothing, changed hairstyle, wrong hat, missing glasses, missing wristband";
+
+/* =========================================================================
+   3. UTILITIES
+   ========================================================================= */
+const $  = (sel, root) => (root || document).querySelector(sel);
+const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+let _idCounter = 0;
+function uid(prefix) { _idCounter += 1; return (prefix || "id") + "_" + Date.now().toString(36) + "_" + _idCounter.toString(36); }
+
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+function escapeHtml(str) {
+  return String(str == null ? "" : str)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function formatDate(ts) {
+  try {
+    const d = new Date(ts);
+    return d.toLocaleString(state.lang === "fa" ? "fa-IR" : "en-GB", {
+      year: "numeric", month: "short", day: "2-digit",
+      hour: "2-digit", minute: "2-digit"
+    });
+  } catch (e) { return String(ts); }
+}
+
+/** Format a number for the current locale (Persian uses Persian digits). */
+function nf(n) {
+  try { return new Intl.NumberFormat(state.lang === "fa" ? "fa-IR" : "en-US").format(n); }
+  catch (e) { return String(n); }
+}
+
+function setStatus(online) {
+  const dot = $("#statusDot");
+  const text = $("#statusText");
+  if (online) {
+    dot.classList.remove("offline");
+    text.textContent = state.lang === "fa" ? "آماده" : "Ready";
+  } else {
+    dot.classList.add("offline");
+    text.textContent = state.lang === "fa" ? "تنظیم نشده" : "Not configured";
+  }
+}
+
+/* =========================================================================
+   4. STATE + PERSISTENCE
+   ========================================================================= */
+const STORAGE_KEYS = {
+  config:   "allay.config.v1",
+  options:  "allay.options.v1",
+  lang:     "allay.lang.v1",
+  projects: "allay.projects.v1"
+};
+
+const state = {
+  lang: "en",
+  skin: { img: null, width: 0, height: 0, filename: "", format: "" },
+  options: {
+    style: "japaneseAnime",
+    background: "darkNavy",
+    customBg: "",
+    lighting: "naturalStudio",
+    pose: "headShoulders",
+    quality: "1024",
+    count: 1,
+    strength: 0.85,
+    styleStrength: 0.7
+  },
+  config: {
+    provider: "puter",
+    endpoint: PROVIDER_DEFAULTS.puter.endpoint,
+    key: "",
+    model: PROVIDER_DEFAULTS.puter.model,
+    timeout: 180,
+    rememberKey: false,
+    theme: "dark"
+  },
+  prompt: { user: null, negative: DEFAULT_NEGATIVE },
+  results: [],
+  selectedResultId: null,
+  generating: false,
+  abortController: null,
+  projects: []
+};
+
+function safeParse(str, fallback) {
+  try { const v = JSON.parse(str); return v == null ? fallback : v; }
+  catch (e) { return fallback; }
+}
+
+function loadPersisted() {
+  try {
+    const lang = localStorage.getItem(STORAGE_KEYS.lang);
+    if (lang === "en" || lang === "fa") state.lang = lang;
+
+    const opts = safeParse(localStorage.getItem(STORAGE_KEYS.options), null);
+    if (opts && typeof opts === "object") {
+      Object.keys(state.options).forEach(k => {
+        if (opts[k] !== undefined && opts[k] !== null) state.options[k] = opts[k];
+      });
+    }
+
+    const cfg = safeParse(localStorage.getItem(STORAGE_KEYS.config), null);
+    if (cfg && typeof cfg === "object") {
+      Object.keys(state.config).forEach(k => {
+        if (cfg[k] !== undefined && cfg[k] !== null) state.config[k] = cfg[k];
+      });
+      if (!state.config.rememberKey) state.config.key = "";
+    }
+
+    const projects = safeParse(localStorage.getItem(STORAGE_KEYS.projects), []);
+    if (Array.isArray(projects)) state.projects = projects;
+  } catch (e) {
+    console.warn("Could not read persisted state:", e);
+  }
+}
+
+function persistOptions() {
+  try { localStorage.setItem(STORAGE_KEYS.options, JSON.stringify(state.options)); }
+  catch (e) { console.warn("Could not persist options:", e); }
+}
+
+function persistConfig() {
+  try {
+    const clone = Object.assign({}, state.config);
+    if (!clone.rememberKey) clone.key = "";
+    localStorage.setItem(STORAGE_KEYS.config, JSON.stringify(clone));
+  } catch (e) { console.warn("Could not persist config:", e); }
+}
+
+function persistLang() {
+  try { localStorage.setItem(STORAGE_KEYS.lang, state.lang); } catch (e) {}
+}
+
+function persistProjects() {
+  try {
+    // Cap history to the most recent 30 entries to avoid unbounded storage growth.
+    const trimmed = state.projects.slice(0, 30);
+    localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(trimmed));
+    if (trimmed.length !== state.projects.length) state.projects = trimmed;
+  } catch (e) {
+    console.warn("Could not persist projects (storage may be full):", e);
+  }
+}
+
+/* =========================================================================
+   5. TOAST NOTIFICATIONS
+   ========================================================================= */
+function toast(message, type) {
+  const stack = $("#toastStack");
+  if (!stack) return;
+  const el = document.createElement("div");
+  el.className = "toast " + (type || "info");
+  const icon = type === "error"
+    ? '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
+    : type === "success"
+      ? '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+      : '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>';
+  el.innerHTML = icon + '<span>' + escapeHtml(message) + '</span>';
+  stack.appendChild(el);
+  setTimeout(() => {
+    el.classList.add("out");
+    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 320);
+  }, 3400);
+}
+
+/* =========================================================================
+   6. NAVIGATION
+   ========================================================================= */
+const VIEW_META = {
+  dashboard: { labelKey: "navDashboard" },
+  studio:    { labelKey: "navStudio" },
+  ai:        { labelKey: "navAIStudio" },
+  history:   { labelKey: "navHistory" },
+  settings:  { labelKey: "navSettings" },
+  about:     { labelKey: "navAbout" }
+};
+
+let currentView = "dashboard";
+
+function navigate(view) {
+  if (!VIEW_META[view]) view = "dashboard";
+  currentView = view;
+
+  $$(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + view));
+  $$(".nav-item").forEach(n => n.classList.toggle("active", n.getAttribute("data-nav") === view));
+  const crumb = $("#crumbCurrent");
+  if (crumb) crumb.textContent = t(VIEW_META[view].labelKey);
+
+  // Refresh view-specific content
+  if (view === "history") renderHistoryList();
+  if (view === "dashboard") renderRecentProjects();
+  if (view === "settings") fillSettingsForm();
+  if (view === "studio") refreshProviderSummary();
+  if (view === "ai") { aiRenderHistory(); aiTypeChanged(); }
+}
+
+/* =========================================================================
+   7. MINECRAFT SKIN — NORMALISE + RENDER
+   ========================================================================= */
+
+/**
+ * Normalise a loaded HTMLImageElement into a 64-wide canvas.
+ * Returns { canvas, width, height } or null for unsupported dimensions.
+ */
+function normalizeSkin(img) {
+  const w = img.naturalWidth || img.width;
+  const h = img.naturalHeight || img.height;
+  if (!w || !h) return null;
+
+  const ratio = w / h;
+  let targetH;
+  if (Math.abs(ratio - 1) < 0.02) targetH = 64;
+  else if (Math.abs(ratio - 2) < 0.03) targetH = 32;
+  else return null;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 64;
+  canvas.height = targetH;
+  const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = false;
+  ctx.clearRect(0, 0, 64, targetH);
+  ctx.drawImage(img, 0, 0, w, h, 0, 0, 64, targetH);
+  return { canvas, width: targetH === 64 ? 64 : 64, height: targetH, originalW: w, originalH: h };
+}
+
+function drawPart(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh, flip) {
+  ctx.save();
+  if (flip) {
+    ctx.translate(dx + dw, dy);
+    ctx.scale(-1, 1);
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+  } else {
+    ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+  }
+  ctx.restore();
+}
+
+/**
+ * Render the front-facing character into a canvas context.
+ * Skin-unit grid (16 × 32):
+ *   head  : x 4..12, y  0..8
+ *   body  : x 4..12, y  8..20
+ *   r-arm : x 0..4,  y  8..20
+ *   l-arm : x 12..16, y  8..20
+ *   r-leg : x 4..8,  y 20..32
+ *   l-leg : x 8..12, y 20..32
+ * The legacy 64×32 layout mirrors the left limbs from the right ones.
+ */
+function renderCharacter(ctx, img, u, ox, oy) {
+  const srcH = img.height || img.naturalHeight;
+  const legacy = srcH < 64;
+
+  const P = (sx, sy, sw, sh, dx, dy, flip) =>
+    drawPart(ctx, img, sx, sy, sw, sh, ox + dx * u, oy + dy * u, sw * u, sh * u, !!flip);
+
+  // base layers
+  P(4, 20, 4, 12, 4, 20);                                          // right leg
+  P(legacy ? 4 : 20, legacy ? 20 : 52, 4, 12, 8, 20, legacy);      // left leg (legacy mirrors right)
+  P(20, 20, 8, 12, 4, 8);                                          // body
+  P(44, 20, 4, 12, 0, 8);                                          // right arm
+  P(legacy ? 44 : 36, legacy ? 20 : 52, 4, 12, 12, 8, legacy);     // left arm
+  P(8, 8, 8, 8, 4, 0);                                             // head
+
+  // overlay layers (hat / jacket / sleeves)
+  P(4, 36, 4, 12, 4, 20);                                          // right leg overlay
+  P(legacy ? 4 : 4, legacy ? 36 : 52, 4, 12, 8, 20, legacy);       // left leg overlay
+  P(20, 36, 8, 12, 4, 8);                                          // body overlay
+  P(44, 36, 4, 12, 0, 8);                                          // right arm overlay
+  P(legacy ? 44 : 52, legacy ? 36 : 52, 4, 12, 12, 8, legacy);     // left arm overlay
+  P(40, 8, 8, 8, 4, 0);                                            // hat / helmet overlay
+}
+
+function drawPreviewCanvas() {
+  const canvas = $("#previewCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const u = 22;
+  canvas.width = 16 * u;
+  canvas.height = 32 * u;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.imageSmoothingEnabled = false;
+  if (state.skin.img) renderCharacter(ctx, state.skin.img, u, 0, 0);
+}
+
+/**
+ * Build a square reference render of the skin.
+ * This is the image sent to the AI provider and shown as the "before" image.
+ */
+function buildReferenceCanvas(size) {
+  size = size || 1024;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  const bg = ctx.createLinearGradient(0, 0, size, size);
+  bg.addColorStop(0, "#12142b");
+  bg.addColorStop(1, "#1b1338");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+
+  const glow = ctx.createRadialGradient(size / 2, size * 0.42, 0, size / 2, size * 0.42, size * 0.55);
+  glow.addColorStop(0, "rgba(124,92,255,.35)");
+  glow.addColorStop(1, "rgba(124,92,255,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, size, size);
+
+  if (state.skin.img) {
+    const u = Math.max(1, Math.floor((size * 0.86) / 32));
+    const w = 16 * u;
+    const h = 32 * u;
+    ctx.imageSmoothingEnabled = false;
+    renderCharacter(ctx, state.skin.img, u, (size - w) / 2, (size - h) / 2);
+  }
+  return canvas;
+}
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise((resolve, reject) => {
+    try {
+      canvas.toBlob(b => (b ? resolve(b) : reject(new Error("toBlob returned null"))), type || "image/png", quality);
+    } catch (e) { reject(e); }
+  });
+}
+
+function blobToDataURL(blob) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => resolve(String(fr.result));
+    fr.onerror = () => reject(new Error("FileReader failed"));
+    fr.readAsDataURL(blob);
+  });
+}
+
+/* =========================================================================
+   8. SKIN COLOUR ANALYSIS
+   ========================================================================= */
+function rgbToHex(r, g, b) {
+  const h = n => clamp(Math.round(n), 0, 255).toString(16).padStart(2, "0");
+  return "#" + h(r) + h(g) + h(b);
+}
+
+function analyzeSkin(skinCanvas) {
+  if (!skinCanvas) return {};
+  const ctx = skinCanvas.getContext("2d");
+  const W = skinCanvas.width;
+  const H = skinCanvas.height;
+  let data;
+  try { data = ctx.getImageData(0, 0, W, H).data; }
+  catch (e) { return {}; }
+
+  function avg(sx, sy, sw, sh) {
+    let r = 0, g = 0, b = 0, n = 0;
+    for (let y = sy; y < sy + sh; y++) {
+      if (y < 0 || y >= H) continue;
+      for (let x = sx; x < sx + sw; x++) {
+        if (x < 0 || x >= W) continue;
+        const i = (y * W + x) * 4;
+        if (data[i + 3] < 32) continue;
+        r += data[i]; g += data[i + 1]; b += data[i + 2]; n++;
+      }
+    }
+    return n ? rgbToHex(r / n, g / n, b / n) : null;
+  }
+
+  function hasPixels(sx, sy, sw, sh) {
+    for (let y = sy; y < sy + sh; y++) {
+      if (y < 0 || y >= H) continue;
+      for (let x = sx; x < sx + sw; x++) {
+        if (x < 0 || x >= W) continue;
+        if (data[(y * W + x) * 4 + 3] > 32) return true;
+      }
+    }
+    return false;
+  }
+
+  return {
+    hair:       avg(8, 8, 8, 3),
+    face:       avg(8, 11, 8, 5),
+    shirt:      avg(20, 20, 8, 12),
+    sleeve:     avg(44, 20, 4, 4),
+    hand:       avg(44, 28, 4, 4),
+    pants:      avg(4, 20, 4, 6),
+    shoes:      avg(4, 26, 4, 6),
+    hasHat:     hasPixels(40, 8, 8, 8),
+    hasJacket:  hasPixels(20, 36, 8, 12),
+    hasSleeves: hasPixels(44, 36, 4, 12)
+  };
+}
+
+/* =========================================================================
+   9. PROMPT BUILDER
+   ========================================================================= */
+function getOption(group, value) {
+  const list = OPTIONS[group];
+  if (!list) return null;
+  return list.find(o => o.v === value) || list[0];
+}
+
+function buildDefaultPrompt() {
+  const o = state.options;
+  const styleItem = getOption("style", o.style);
+  const bgItem    = getOption("background", o.background);
+  const lightItem = getOption("lighting", o.lighting);
+  const poseItem  = getOption("pose", o.pose);
+
+  let bgText = bgItem ? bgItem.p : "a neutral background";
+  if (o.background === "customColor") {
+    const custom = (o.customBg || "").trim();
+    bgText = custom ? "a flat background described as: " + custom : "a flat custom colour background";
+  }
+
+  const pal = state.skin.img ? analyzeSkin(state.skin.img) : {};
+  const paletteLines = [];
+  if (pal.hair)   paletteLines.push("hair/head: " + pal.hair);
+  if (pal.face)   paletteLines.push("face/skin: " + pal.face);
+  if (pal.shirt)  paletteLines.push("torso clothing: " + pal.shirt);
+  if (pal.sleeve) paletteLines.push("arm/sleeve: " + pal.sleeve);
+  if (pal.hand)   paletteLines.push("hands: " + pal.hand);
+  if (pal.pants)  paletteLines.push("leg clothing: " + pal.pants);
+  if (pal.shoes)  paletteLines.push("footwear: " + pal.shoes);
+
+  const accessoryNotes = [];
+  if (pal.hasHat)     accessoryNotes.push("a head accessory / hat layer is present and must be kept");
+  if (pal.hasJacket)  accessoryNotes.push("a jacket / torso overlay layer is present and must be kept");
+  if (pal.hasSleeves) accessoryNotes.push("arm overlay layers (sleeves, wristbands) are present and must be kept in their exact positions");
+
+  const lines = [
+    "Create a " + (styleItem ? styleItem.en : "anime") + " profile picture of the character shown in the reference image.",
+    "",
+    "STYLE: " + (styleItem ? styleItem.p : "modern anime illustration") + ".",
+    "",
+    "CHARACTER ACCURACY — THIS IS THE HIGHEST PRIORITY:",
+    "- The reference image is a render of a Minecraft skin (a blocky voxel character).",
+    "- Reinterpret this EXACT character; do not invent a different anime character.",
+    "- Preserve the original clothing exactly: same garments, same colours, same patterns.",
+    "- Preserve every accessory in its correct position: hats, helmets, glasses, masks, wristbands, arm bands, belts, gloves, shoes.",
+    "- Preserve the exact colour palette of the skin.",
+    "- Never add accessories, weapons, jewellery, tattoos or clothing that are not in the reference.",
+    "- Never change the character's identity or hair colour.",
+    "- Keep the character instantly recognisable as the same person."
+  ];
+
+  if (paletteLines.length) {
+    lines.push("");
+    lines.push("COLOUR PALETTE EXTRACTED FROM THE REFERENCE SKIN (match these exactly):");
+    paletteLines.forEach(l => lines.push("- " + l));
+  }
+  if (accessoryNotes.length) {
+    lines.push("");
+    lines.push("ACCESSORY NOTES:");
+    accessoryNotes.forEach(l => lines.push("- " + l));
+  }
+
+  lines.push(
+    "",
+    "COMPOSITION:",
+    "- Pose: " + (poseItem ? poseItem.p : "head and shoulders") + ".",
+    "- Lighting: " + (lightItem ? lightItem.p : "soft lighting") + ".",
+    "- Background: " + bgText + ".",
+    "- Square 1:1 aspect ratio, subject centred, generous framing.",
+    "- Clean, sharp, highly detailed, professional profile-picture quality."
+  );
+
+  return lines.join("\n");
+}
+
+function getEffectivePrompt() {
+  return (state.prompt.user != null && state.prompt.user.trim() !== "")
+    ? state.prompt.user
+    : buildDefaultPrompt();
+}
+
+/* =========================================================================
+   10. AI PROVIDER LAYER
+   ========================================================================= */
+
+/** Normalise any image reference returned by a provider into a usable URL. */
+function normalizeImageString(s) {
+  if (typeof s !== "string" || !s) return null;
+  if (s.startsWith("data:") || s.startsWith("http") || s.startsWith("blob:")) return s;
+  if (s.length > 200) return "data:image/png;base64," + s;
+  return null;
+}
+
+/** Extract every image found in a provider JSON response. */
+function extractImages(json) {
+  const out = [];
+  const push = v => { const n = normalizeImageString(v); if (n) out.push(n); };
+  if (!json || typeof json !== "object") return out;
+
+  // OpenAI: { data: [ { b64_json | url } ] }
+  if (Array.isArray(json.data)) {
+    json.data.forEach(d => {
+      if (!d) return;
+      if (typeof d === "string") push(d);
+      else { push(d.b64_json); push(d.url); push(d.image); }
+    });
+  }
+  // Stability: { artifacts: [ { base64 } ] } or { image: "<base64>" }
+  if (Array.isArray(json.artifacts)) json.artifacts.forEach(a => { if (a) push(a.base64); });
+  push(json.image);
+  push(json.b64_json);
+  // Generic arrays
+  ["images", "output", "outputs", "results"].forEach(key => {
+    if (!Array.isArray(json[key])) return;
+    json[key].forEach(item => {
+      if (typeof item === "string") push(item);
+      else if (item && typeof item === "object") {
+        push(item.url); push(item.b64_json); push(item.base64); push(item.image);
+      }
+    });
+  });
+
+  return Array.from(new Set(out));
+}
+
+/** Load an <img> from any source, with a CORS-safe retry. */
+function loadImageElement(src, withCors) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    if (withCors !== false) img.crossOrigin = "anonymous";
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("image load failed"));
+    img.src = src;
+  });
+}
+
+/** Convert a data URL / blob URL / http URL to a Blob. */
+async function urlToBlob(url) {
+  if (url.startsWith("data:")) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Could not decode data URL");
+    return await res.blob();
+  }
+  const res = await fetch(url, { mode: "cors" });
+  if (!res.ok) throw new Error("Could not fetch image: " + res.status);
+  return await res.blob();
+}
+
+/**
+ * Build the HTTP request for the configured provider.
+ * Each provider has its own documented request format.
+ */
+async function buildProviderRequest(referenceCanvas, prompt, negative, settings, signal) {
+  const provider = state.config.provider;
+  const endpoint = (state.config.endpoint || "").trim();
+  const key = (state.config.key || "").trim();
+  const model = (state.config.model || "").trim();
+
+  if (!endpoint) throw new Error(t("errNeedConfig"));
+  if (!key) throw new Error(t("errNeedConfig"));
+
+  const refBlob = await canvasToBlob(referenceCanvas, "image/png");
+  const size = parseInt(settings.quality, 10) || 1024;
+
+  /* ---------------- OpenAI images/edits ---------------- */
+  if (provider === "openai") {
+    const form = new FormData();
+    form.append("model", model || "gpt-image-1");
+    form.append("prompt", prompt + (negative ? "\n\nAVOID: " + negative : ""));
+    form.append("n", String(settings.count || 1));
+    form.append("size", size + "x" + size);
+    form.append("image", refBlob, "reference.png");
+
+    return {
+      url: endpoint,
+      options: {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + key },
+        body: form,
+        signal
+      }
+    };
+  }
+
+  /* ---------------- Stability AI SD3 image-to-image ---------------- */
+  if (provider === "stability") {
+    const form = new FormData();
+    form.append("mode", "image-to-image");
+    form.append("image", refBlob, "reference.png");
+    form.append("prompt", prompt);
+    if (negative) form.append("negative_prompt", negative);
+    form.append("model", model || "sd3.5-large");
+    form.append("strength", String(settings.strength != null ? settings.strength : 0.85));
+    form.append("aspect_ratio", "1:1");
+    form.append("output_format", "png");
+
+    return {
+      url: endpoint,
+      options: {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + key,
+          "Accept": "image/*"
+        },
+        body: form,
+        signal
+      }
+    };
+  }
+
+  /* ---------------- Custom JSON endpoint ---------------- */
+  // Sends a JSON body with a base64 reference image and every setting.
+  const refDataUrl = await blobToDataURL(refBlob);
+  const body = {
+    prompt,
+    negative_prompt: negative,
+    reference_image: refDataUrl,
+    model: model || undefined,
+    n: settings.count || 1,
+    size: size,
+    image_strength: settings.strength,
+    style_strength: settings.styleStrength,
+    style: settings.style,
+    background: settings.background,
+    lighting: settings.lighting,
+    pose: settings.pose
+  };
+
+  return {
+    url: endpoint,
+    options: {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + key
+      },
+      body: JSON.stringify(body),
+      signal
+    }
+  };
+}
+
+/**
+ * Perform the actual generation request.
+ * Returns an array of image URLs (data URLs or remote URLs).
+ */
+async function callProvider(referenceCanvas, prompt, negative, settings, signal) {
+  if (state.config.provider === "puter") {
+    if (!window.puter || !window.puter.ai || typeof window.puter.ai.txt2img !== "function") {
+      throw new Error("Puter.js did not load. Check your internet connection and reopen this HTML file.");
+    }
+    if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
+    const refBlob = await canvasToBlob(referenceCanvas, "image/png");
+    const fullPrompt = prompt + (negative ? "\n\nAvoid: " + negative : "");
+    try {
+      const generated = await window.puter.ai.txt2img(fullPrompt, {
+        model: state.config.model || "gpt-image-2.6-flare",
+        input_image: refBlob,
+        aspect_ratio: "1:1",
+        quality: "low"
+      });
+      if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
+
+      // Puter may return an image element, a URL, or a Blob depending on SDK/runtime.
+      let imageSrc = "";
+      if (typeof generated === "string") imageSrc = generated;
+      else if (generated instanceof Blob) imageSrc = await blobToDataURL(generated);
+      else if (generated && generated.src) imageSrc = generated.src;
+      else if (generated && generated.currentSrc) imageSrc = generated.currentSrc;
+      else if (generated && generated.data instanceof Blob) imageSrc = await blobToDataURL(generated.data);
+      if (!imageSrc) {
+        let detail = "";
+        try { detail = JSON.stringify(generated).slice(0, 500); } catch (_) {}
+        throw new Error("Puter returned an unsupported image result" + (detail ? ": " + detail : "."));
+      }
+      return [imageSrc];
+    } catch (err) {
+      if (err && err.name === "AbortError") throw err;
+      let detail = "";
+      if (err && typeof err === "object") {
+        const parts = [];
+        ["message", "code", "name", "status", "statusCode", "error", "hint", "details"].forEach(k => {
+          const v = err[k];
+          if (v !== undefined && v !== null && typeof v !== "object" && String(v)) {
+            parts.push(k + ": " + String(v));
+          } else if (v && typeof v === "object") {
+            try { parts.push(k + ": " + JSON.stringify(v)); } catch (_) {}
+          }
+        });
+        try {
+          const raw = JSON.stringify(err);
+          if (raw && raw !== "{}") parts.push("details: " + raw.slice(0, 1200));
+        } catch (_) {}
+        detail = Array.from(new Set(parts)).join(" | ");
+      } else {
+        detail = String(err || "Unknown error");
+      }
+      throw new Error("Puter: " + (detail || "Unknown error. Please retry."));
+    }
+  }
+
+  const req = await buildProviderRequest(referenceCanvas, prompt, negative, settings, signal);
+
+  let response;
+  try {
+    response = await fetch(req.url, req.options);
+  } catch (err) {
+    if (err && err.name === "AbortError") throw err;
+    throw new Error(t("errNetwork") + (err && err.message ? " (" + err.message + ")" : ""));
+  }
+
+  if (!response.ok) {
+    let detail = "";
+    try {
+      const text = await response.text();
+      detail = text.slice(0, 400);
+    } catch (e) { /* ignore */ }
+    throw new Error(t("errHttp", { status: response.status, msg: detail || response.statusText }));
+  }
+
+  const contentType = (response.headers.get("content-type") || "").toLowerCase();
+
+  // Some providers return the image directly.
+  if (contentType.startsWith("image/")) {
+    const blob = await response.blob();
+    return [await blobToDataURL(blob)];
+  }
+
+  let json;
+  try { json = await response.json(); }
+  catch (e) { throw new Error(t("errNoImage")); }
+
+  const images = extractImages(json);
+  if (!images.length) throw new Error(t("errNoImage"));
+
+  // If remote URLs are returned, convert them to data URLs so download & export work.
+  const localised = [];
+  for (const src of images) {
+    if (src.startsWith("data:")) {
+      localised.push(src);
+      continue;
+    }
+    try {
+      const blob = await urlToBlob(src);
+      localised.push(await blobToDataURL(blob));
+    } catch (e) {
+      // Cross-origin providers may block fetch; keep the remote URL as a fallback.
+      localised.push(src);
+    }
+  }
+  return localised;
+}
+
+/* =========================================================================
+   11. GENERATION PIPELINE
+   ========================================================================= */
+function setGeneratingUI(on) {
+  const btn = $("#generateBtn");
+  const label = $("#genBtnLabel");
+  if (btn) btn.disabled = on;
+  if (label) label.textContent = on ? t("generating") : t("generate");
+
+  const wrap = $("#progressWrap");
+  if (wrap) wrap.classList.toggle("hidden", !on);
+  if (on) setProgress(0, t("preparing"), true);
+}
+
+function setProgress(percent, label, indeterminate) {
+  const fill = $("#progressFill");
+  const pct = $("#progressPct");
+  const lbl = $("#progressLabel");
+  if (fill) {
+    fill.classList.toggle("indeterminate", !!indeterminate);
+    if (!indeterminate) fill.style.width = clamp(percent, 0, 100) + "%";
+  }
+  if (pct) pct.textContent = indeterminate ? "…" : clamp(Math.round(percent), 0, 100) + "%";
+  if (lbl && label) lbl.textContent = label;
+}
+
+function showGenAlert(type, message) {
+  const box = $("#genAlert");
+  if (!box) return;
+  if (!message) { box.innerHTML = ""; return; }
+  const cls = type === "error" ? "error" : type === "success" ? "success" : type === "warn" ? "warn" : "info";
+  const icon = type === "error"
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
+    : type === "success"
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>';
+  box.innerHTML =
+    '<div class="alert ' + cls + '">' + icon +
+    '<span class="msg">' + escapeHtml(message) + '</span>' +
+    '<button class="close" type="button" aria-label="Dismiss">✕</button></div>';
+  const closeBtn = box.querySelector(".close");
+  if (closeBtn) closeBtn.addEventListener("click", () => { box.innerHTML = ""; });
+}
+
+function isConfigured() {
+  if (state.config.provider === "puter") {
+    return !!(window.puter && window.puter.ai && typeof window.puter.ai.txt2img === "function");
+  }
+  return !!(state.config.endpoint && state.config.endpoint.trim() && state.config.key && state.config.key.trim());
+}
+
+async function generate() {
+  if (state.generating) return;
+
+  if (!state.skin.img) {
+    showGenAlert("error", t("errNeedSkin"));
+    toast(t("errNeedSkin"), "error");
+    navigate("studio");
+    return;
+  }
+  if (!isConfigured()) {
+    showGenAlert("error", t("errNeedConfig"));
+    toast(t("errNeedConfig"), "error");
+    navigate("settings");
+    return;
+  }
+
+  showGenAlert("", "");
+  state.generating = true;
+  setGeneratingUI(true);
+  setStatus(true);
+
+  const controller = new AbortController();
+  state.abortController = controller;
+
+  const settings = {
+    quality: state.options.quality,
+    count: state.options.count,
+    strength: state.options.strength,
+    styleStrength: state.options.styleStrength,
+    style: state.options.style,
+    background: state.options.background,
+    lighting: state.options.lighting,
+    pose: state.options.pose
+  };
+
+  const prompt = getEffectivePrompt();
+  const negative = (state.prompt.negative || "").trim();
+
+  const timeoutSec = clamp(parseInt(state.config.timeout, 10) || 180, 10, 600);
+  let timeoutId = null;
+
+  try {
+    const refCanvas = buildReferenceCanvas(1024);
+    setProgress(8, t("preparing"), true);
+    await new Promise(r => setTimeout(r, 40));
+
+    // Timeout watchdog
+    const timeoutPromise = new Promise((_, reject) => {
+      timeoutId = setTimeout(() => {
+        try { controller.abort(); } catch (e) {}
+        reject(new Error(t("errTimeout", { sec: timeoutSec })));
+      }, timeoutSec * 1000);
+    });
+
+    setProgress(20, t("uploading"), true);
+
+    const images = await Promise.race([
+      callProvider(refCanvas, prompt, negative, settings, controller.signal),
+      timeoutPromise
+    ]);
+
+    if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+    if (controller.signal.aborted) throw new Error(t("errAborted"));
+
+    setProgress(92, t("downloading"), false);
+    if (!images.length) throw new Error(t("errNoImage"));
+
+    // Preload every image so broken results never reach the gallery.
+    const valid = [];
+    for (const src of images) {
+      try {
+        await loadImageElement(src, !src.startsWith("data:"));
+        valid.push(src);
+      } catch (e) {
+        console.warn("Generated image could not be loaded:", e);
+      }
+    }
+    if (!valid.length) throw new Error(t("errImageRender"));
+
+    setProgress(100, t("done"), false);
+
+    const referenceDataUrl = await blobToDataURL(await canvasToBlob(refCanvas, "image/png"));
+
+    const created = valid.map(src => ({
+      id: uid("res"),
+      src,
+      reference: referenceDataUrl,
+      prompt,
+      negative,
+      createdAt: Date.now(),
+      settings: Object.assign({}, settings),
+      skinFilename: state.skin.filename
+    }));
+
+    state.results = created.concat(state.results).slice(0, 20);
+    state.selectedResultId = created[0].id;
+
+    renderResults();
+    saveProjectFromResults(created);
+    setStatus(true);
+    toast(state.lang === "fa" ? "تصویر با موفقیت ساخته شد." : "Profile generated successfully.", "success");
+
+  } catch (err) {
+    if (timeoutId) clearTimeout(timeoutId);
+    const msg = (err && err.message) || String(err);
+    if (err && err.name === "AbortError") {
+      showGenAlert("warn", t("errAborted"));
+    } else {
+      showGenAlert("error", msg);
+      toast(msg, "error");
+    }
+    console.error("Generation failed:", err);
+  } finally {
+    state.generating = false;
+    state.abortController = null;
+    setGeneratingUI(false);
+  }
+}
+
+/** Save the newly generated results as a project in local history. */
+function saveProjectFromResults(results) {
+  if (!results || !results.length) return;
+  const first = results[0];
+  const project = {
+    id: uid("proj"),
+    name: (state.skin.filename || "Untitled project") + " · " + formatDate(Date.now()),
+    createdAt: Date.now(),
+    skinFilename: state.skin.filename,
+    reference: first.reference,
+    prompt: first.prompt,
+    results: results.map(r => ({ id: r.id, src: r.src, createdAt: r.createdAt }))
+  };
+  state.projects.unshift(project);
+  persistProjects();
+  renderRecentProjects();
+  renderHistoryList();
+}
+
+/* =========================================================================
+   12. RESULTS UI
+   ========================================================================= */
+function getSelectedResult() {
+  return state.results.find(r => r.id === state.selectedResultId) || null;
+}
+
+function renderResults() {
+  const countEl = $("#resultsCount");
+  if (countEl) countEl.textContent = nf(state.results.length);
+
+  const before = $("#compareBefore");
+  const after = $("#compareAfter");
+  const line = $("#compareLine");
+  const ph = $("#comparePlaceholder");
+  const thumb = $("#thumbSelected");
+  const thumbPh = $("#thumbPlaceholder");
+  const gallery = $("#resultsGallery");
+
+  const selected = getSelectedResult();
+
+  if (!selected) {
+    if (before) before.style.display = "none";
+    if (after) after.style.display = "none";
+    if (line) line.style.display = "none";
+    if (ph) ph.style.display = "";
+    if (thumb) thumb.style.display = "none";
+    if (thumbPh) thumbPh.style.display = "";
+    if (gallery) gallery.innerHTML = "";
+    return;
+  }
+
+  if (before) { before.src = selected.reference || ""; before.style.display = selected.reference ? "" : "none"; }
+  if (after)  { after.src = selected.src; after.style.display = ""; }
+  if (line)   line.style.display = selected.reference ? "" : "none";
+  if (ph)     ph.style.display = "none";
+
+  if (thumb)  { thumb.src = selected.src; thumb.style.display = ""; }
+  if (thumbPh) thumbPh.style.display = "none";
+
+  if (gallery) {
+    gallery.innerHTML = "";
+    state.results.forEach(r => {
+      const wrap = document.createElement("div");
+      wrap.className = "result-frame";
+      wrap.style.cursor = "pointer";
+      wrap.style.borderColor = r.id === state.selectedResultId ? "rgba(124,92,255,.6)" : "";
+      wrap.title = formatDate(r.createdAt);
+      const img = document.createElement("img");
+      img.src = r.src;
+      img.alt = "result";
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+      wrap.appendChild(img);
+      wrap.addEventListener("click", () => {
+        state.selectedResultId = r.id;
+        renderResults();
+      });
+      gallery.appendChild(wrap);
+    });
+  }
+}
+
+/* =========================================================================
+   13. EDITOR MODAL
+   ========================================================================= */
+const editorState = { split: 50, zoom: 100 };
+
+function openEditor() {
+  const result = getSelectedResult();
+  if (!result) { toast(t("toastNoResult"), "error"); return; }
+
+  const modal = $("#editorModal");
+  const before = $("#editorBefore");
+  const after = $("#editorAfter");
+  const inner = $("#editorInner");
+
+  if (before) {
+    if (result.reference) { before.src = result.reference; before.style.display = ""; }
+    else before.style.display = "none";
+  }
+  if (after) after.src = result.src;
+
+  editorState.split = 50;
+  editorState.zoom = 100;
+  $("#editorCompare").value = 50;
+  $("#editorZoom").value = 100;
+
+  applyEditorTransform();
+  applyEditorCompare();
+
+  if (inner) inner.style.clipPath = "none";
+  // The "after" image sits on top and is clipped by the split.
+  if (after) after.style.clipPath = "inset(0 calc(100% - " + editorState.split + "%) 0 0)";
+  if (before) before.style.zIndex = "0";
+  if (after) after.style.zIndex = "1";
+
+  modal.classList.add("open");
+}
+
+function applyEditorTransform() {
+  const inner = $("#editorInner");
+  if (!inner) return;
+  inner.style.transform = "scale(" + (editorState.zoom / 100) + ")";
+}
+
+function applyEditorCompare() {
+  const after = $("#editorAfter");
+  if (!after) return;
+  after.style.clipPath = "inset(0 calc(100% - " + editorState.split + "%) 0 0)";
+}
+
+/* =========================================================================
+   14. HISTORY / PROJECTS
+   ========================================================================= */
+function renderRecentProjects() {
+  const el = $("#recentList");
+  if (!el) return;
+
+  if (!state.projects.length) {
+    el.innerHTML =
+      '<div class="empty"><span class="big">📁</span>' +
+      (state.lang === "fa" ? "هنوز پروژه‌ای ذخیره نشده است." : "No projects saved yet.") +
+      "</div>";
+    return;
+  }
+
+  el.innerHTML = "";
+  state.projects.slice(0, 5).forEach(p => {
+    el.appendChild(buildProjectRow(p));
+  });
+}
+
+function renderHistoryList() {
+  const el = $("#historyList");
+  if (!el) return;
+
+  if (!state.projects.length) {
+    el.innerHTML =
+      '<div class="empty"><span class="big">📁</span>' +
+      (state.lang === "fa" ? "تاریخچه خالی است." : "History is empty.") +
+      "</div>";
+    return;
+  }
+
+  el.innerHTML = "";
+  state.projects.forEach(p => el.appendChild(buildProjectRow(p)));
+}
+
+function buildProjectRow(project) {
+  const row = document.createElement("div");
+  row.className = "history-item";
+
+  const thumb = document.createElement("div");
+  thumb.className = "history-thumb";
+  const cover = (project.results && project.results[0] && project.results[0].src) || project.reference;
+  if (cover) {
+    const img = document.createElement("img");
+    img.src = cover;
+    img.alt = "";
+    thumb.appendChild(img);
+  } else {
+    thumb.textContent = "▣";
+  }
+
+  const body = document.createElement("div");
+  body.className = "history-body";
+  const h4 = document.createElement("h4");
+  h4.textContent = project.name || "Untitled";
+  const p = document.createElement("p");
+  const n = project.results ? project.results.length : 0;
+  p.textContent = formatDate(project.createdAt) + " · " + n + (state.lang === "fa" ? " تصویر" : (n === 1 ? " image" : " images"));
+  body.appendChild(h4);
+  body.appendChild(p);
+
+  const actions = document.createElement("div");
+  actions.className = "history-actions";
+
+  const loadBtn = document.createElement("button");
+  loadBtn.className = "btn sm";
+  loadBtn.textContent = state.lang === "fa" ? "بازکردن" : "Load";
+  loadBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    loadProject(project.id);
+  });
+
+  const delBtn = document.createElement("button");
+  delBtn.className = "btn sm danger";
+  delBtn.textContent = state.lang === "fa" ? "حذف" : "Delete";
+  delBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    deleteProject(project.id);
+  });
+
+  actions.appendChild(loadBtn);
+  actions.appendChild(delBtn);
+
+  row.appendChild(thumb);
+  row.appendChild(body);
+  row.appendChild(actions);
+
+  row.addEventListener("click", () => loadProject(project.id));
+  return row;
+}
+
+function loadProject(id) {
+  const project = state.projects.find(p => p.id === id);
+  if (!project) return;
+
+  // Restore the images into the results gallery so they can be edited/exported.
+  const restored = (project.results || []).map(r => ({
+    id: r.id || uid("res"),
+    src: r.src,
+    reference: project.reference || "",
+    prompt: project.prompt || "",
+    negative: state.prompt.negative,
+    createdAt: r.createdAt || project.createdAt,
+    settings: Object.assign({}, state.options),
+    skinFilename: project.skinFilename || ""
+  }));
+
+  if (restored.length) {
+    state.results = restored.concat(state.results).slice(0, 20);
+    state.selectedResultId = restored[0].id;
+    renderResults();
+  }
+
+  navigate("studio");
+  toast(state.lang === "fa" ? "پروژه بارگذاری شد." : "Project loaded.", "success");
+}
+
+function deleteProject(id) {
+  const idx = state.projects.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  state.projects.splice(idx, 1);
+  persistProjects();
+  renderHistoryList();
+  renderRecentProjects();
+  toast(t("toastDeleted"), "info");
+}
+
+/* =========================================================================
+   15. SETTINGS
+   ========================================================================= */
+function applyTheme() {
+  document.body.classList.toggle("theme-gaming", state.config.theme === "gaming");
+}
+
+function fillSettingsForm() {
+  const p = $("#cfgProvider");
+  const m = $("#cfgModel");
+  const e = $("#cfgEndpoint");
+  const k = $("#cfgKey");
+  const tI = $("#cfgTimeout");
+  const r = $("#cfgRemember");
+  const lang = $("#cfgLanguage");
+  const theme = $("#cfgTheme");
+
+  if (p) p.value = state.config.provider;
+  if (m) m.value = state.config.model || "";
+  if (e) e.value = state.config.endpoint || "";
+  if (k) k.value = state.config.key || "";
+  if (tI) tI.value = state.config.timeout || 180;
+  if (r) r.checked = !!state.config.rememberKey;
+  if (lang) lang.value = state.lang;
+  if (theme) theme.value = state.config.theme || "dark";
+  const puterMode = state.config.provider === "puter";
+  if (e && e.parentElement) e.parentElement.hidden = puterMode;
+  if (k && k.parentElement) k.parentElement.hidden = puterMode;
+
+  refreshProviderSummary();
+}
+
+function refreshProviderSummary() {
+  const el = $("#providerSummary");
+  if (!el) return;
+  if (isConfigured()) {
+    const providerLabel = state.config.provider === "puter" ? "Puter"
+      : state.config.provider === "openai" ? "OpenAI"
+      : state.config.provider === "stability" ? "Stability AI"
+      : "Custom";
+    el.innerHTML =
+      '<div class="status" style="margin-bottom:6px;"><span class="dot"></span>' +
+      '<span>' + escapeHtml(providerLabel) + " — " + escapeHtml(state.config.model || "default model") + "</span></div>" +
+      (state.config.provider === "puter"
+        ? '<div style="font-size:11.5px;color:var(--muted-2);">Sign in to Puter when you generate. No API key or endpoint required.</div>'
+        : '<div style="font-family:var(--font-mono);font-size:11px;word-break:break-all;color:var(--muted-2);">' + escapeHtml(state.config.endpoint) + "</div>");
+  } else {
+    el.innerHTML =
+      '<div class="status" style="margin-bottom:6px;"><span class="dot offline"></span>' +
+      '<span>' + (state.lang === "fa" ? "سرویس هوش مصنوعی تنظیم نشده" : "AI provider not configured") + "</span></div>" +
+      '<div style="font-size:11.5px;color:var(--muted-2);">' +
+      (state.lang === "fa"
+        ? "برای تولید تصویر، به تنظیمات بروید و آدرس و کلید API را وارد کنید."
+        : "Go to Settings and enter an endpoint and API key to enable generation.") +
+      "</div>";
+  }
+  setStatus(isConfigured());
+}
+
+function saveSettings() {
+  const p = $("#cfgProvider");
+  const m = $("#cfgModel");
+  const e = $("#cfgEndpoint");
+  const k = $("#cfgKey");
+  const tI = $("#cfgTimeout");
+  const r = $("#cfgRemember");
+  const lang = $("#cfgLanguage");
+  const theme = $("#cfgTheme");
+
+  if (p) state.config.provider = p.value;
+  if (m) state.config.model = m.value.trim();
+  if (state.config.provider === "puter") {
+    state.config.endpoint = "";
+    state.config.key = "";
+    state.config.rememberKey = false;
+  } else {
+    if (e) state.config.endpoint = e.value.trim();
+    if (k) state.config.key = k.value;
+  }
+  if (tI) state.config.timeout = clamp(parseInt(tI.value, 10) || 180, 10, 600);
+  if (r) state.config.rememberKey = r.checked;
+  if (lang && (lang.value === "en" || lang.value === "fa")) state.lang = lang.value;
+  if (theme) state.config.theme = theme.value === "gaming" ? "gaming" : "dark";
+  applyTheme();
+
+  persistConfig();
+  persistLang();
+  applyLang();
+  refreshProviderSummary();
+
+  toast(t("toastSettingsSaved"), "success");
+}
+
+/* =========================================================================
+   16. i18n + BINDINGS + BOOTSTRAP
+   ========================================================================= */
+function t(key, vars) {
+  const dict = I18N[state.lang] || I18N.en;
+  let str = dict[key] != null ? dict[key] : (I18N.en[key] != null ? I18N.en[key] : key);
+  if (vars) {
+    Object.keys(vars).forEach(k => {
+      str = str.replace(new RegExp("\\{" + k + "\\}", "g"), vars[k]);
+    });
+  }
+  return str;
+}
+
+function applyLang() {
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === "fa" ? "rtl" : "ltr";
+
+  $$("[data-i18n]").forEach(el => {
+    if (el.id === "genBtnLabel" && state.generating) return;
+    el.textContent = t(el.getAttribute("data-i18n"));
+  });
+  $$("[data-i18n-ph]").forEach(el => {
+    el.setAttribute("placeholder", t(el.getAttribute("data-i18n-ph")));
+  });
+
+  const langBtn = $("#langBtn");
+  if (langBtn) langBtn.textContent = state.lang === "fa" ? "EN" : "فا";
+
+  navigate(currentView);
+  refreshProviderSummary();
+  renderResults();
+  renderHistoryList();
+  renderRecentProjects();
+  renderChips();
+  renderSelects();
+  setGeneratingUI(state.generating);
+}
+
+/* -------------------------------------------------------------------------
+   Chips & selects
+   ------------------------------------------------------------------------- */
+function renderChips() {
+  // style
+  const styleWrap = $("#chips-style");
+  if (styleWrap) {
+    styleWrap.innerHTML = "";
+    OPTIONS.style.forEach(o => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (state.options.style === o.v ? " active" : "");
+      b.textContent = state.lang === "fa" ? o.fa : o.en;
+      b.addEventListener("click", () => {
+        state.options.style = o.v;
+        persistOptions();
+        renderChips();
+        refreshPromptFromOptions();
+      });
+      styleWrap.appendChild(b);
+    });
+  }
+
+  // background
+  const bgWrap = $("#chips-background");
+  if (bgWrap) {
+    bgWrap.innerHTML = "";
+    OPTIONS.background.forEach(o => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (state.options.background === o.v ? " active" : "");
+      b.textContent = state.lang === "fa" ? o.fa : o.en;
+      b.addEventListener("click", () => {
+        state.options.background = o.v;
+        persistOptions();
+        renderChips();
+        const wrap = $("#customBgWrap");
+        if (wrap) wrap.classList.toggle("hidden", o.v !== "customColor");
+        refreshPromptFromOptions();
+      });
+      bgWrap.appendChild(b);
+    });
+    const wrap = $("#customBgWrap");
+    if (wrap) wrap.classList.toggle("hidden", state.options.background !== "customColor");
+    const input = $("#customBgInput");
+    if (input) input.value = state.options.customBg || "";
+  }
+
+  // variations
+  const countWrap = $("#chips-count");
+  if (countWrap) {
+    countWrap.innerHTML = "";
+    COUNT_OPTIONS.forEach(n => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (Number(state.options.count) === n ? " active" : "");
+      b.textContent = nf(n);
+      b.addEventListener("click", () => {
+        state.options.count = n;
+        persistOptions();
+        renderChips();
+        renderSelects();
+      });
+      countWrap.appendChild(b);
+    });
+  }
+}
+
+function renderSelects() {
+  fillSelect("#select-lighting", OPTIONS.lighting, state.options.lighting);
+  fillSelect("#select-pose", OPTIONS.pose, state.options.pose);
+  fillSelect("#select-quality", OPTIONS.quality, state.options.quality);
+  fillSelect("#select-count", COUNT_OPTIONS.map(n => ({ v: String(n), en: String(n), fa: nf(n) })), String(state.options.count));
+
+  const strength = $("#range-strength");
+  if (strength) { strength.value = state.options.strength; }
+  const strengthVal = $("#strengthVal");
+  if (strengthVal) strengthVal.textContent = Number(state.options.strength).toFixed(2);
+
+  const styleStrength = $("#range-styleStrength");
+  if (styleStrength) styleStrength.value = state.options.styleStrength;
+  const styleStrengthVal = $("#styleStrengthVal");
+  if (styleStrengthVal) styleStrengthVal.textContent = Number(state.options.styleStrength).toFixed(2);
+
+  const promptArea = $("#promptArea");
+  if (promptArea) promptArea.value = getEffectivePrompt();
+
+  const negArea = $("#negativeArea");
+  if (negArea) negArea.value = state.prompt.negative || "";
+}
+
+function fillSelect(selector, list, value) {
+  const el = $(selector);
+  if (!el) return;
+  el.innerHTML = "";
+  list.forEach(o => {
+    const opt = document.createElement("option");
+    opt.value = o.v;
+    opt.textContent = state.lang === "fa" ? (o.fa || o.en) : o.en;
+    if (String(o.v) === String(value)) opt.selected = true;
+    el.appendChild(opt);
+  });
+}
+
+function refreshPromptFromOptions() {
+  state.prompt.user = null;
+  const area = $("#promptArea");
+  if (area) area.value = buildDefaultPrompt();
+}
+
+/* -------------------------------------------------------------------------
+   Skin import
+   ------------------------------------------------------------------------- */
+function showSkinError(message) {
+  showGenAlert("error", message);
+  toast(message, "error");
+}
+
+async function handleFile(file) {
+  if (!file) return;
+
+  if (!/^image\/png$/i.test(file.type || "")) {
+    showSkinError(t("errFileType"));
+    return;
+  }
+  if (file.size === 0) {
+    showSkinError(t("errFileEmpty"));
+    return;
+  }
+
+  let dataUrl;
+  try { dataUrl = await blobToDataURL(file); }
+  catch (e) { showSkinError(t("errFileRead")); return; }
+
+  let img;
+  try { img = await loadImageElement(dataUrl, false); }
+  catch (e) { showSkinError(t("errImageLoad")); return; }
+
+  const normalised = normalizeSkin(img);
+  if (!normalised) { showSkinError(t("errBadDimensions")); return; }
+
+  // Replace previous skin
+  state.skin.img = normalised.canvas;
+  state.skin.width = normalised.originalW;
+  state.skin.height = normalised.originalH;
+  state.skin.filename = file.name || "skin.png";
+  state.skin.format = normalised.height === 64 ? "64×64" : "64×32";
+
+  drawPreviewCanvas();
+  $("#dzEmpty").classList.add("hidden");
+  $("#dzFilled").classList.remove("hidden");
+  $("#filenameInfo").textContent = state.skin.filename;
+  $("#dimInfo").textContent = state.skin.format;
+
+  refreshPromptFromOptions();
+  showGenAlert("", "");
+  toast(t("toastSkinLoaded"), "success");
+}
+
+function removeSkin() {
+  state.skin = { img: null, width: 0, height: 0, filename: "", format: "" };
+  const canvas = $("#previewCanvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  $("#dzEmpty").classList.remove("hidden");
+  $("#dzFilled").classList.add("hidden");
+  refreshPromptFromOptions();
+  toast(t("toastSkinRemoved"), "info");
+}
+
+/* -------------------------------------------------------------------------
+   Download helper
+   ------------------------------------------------------------------------- */
+async function downloadResult(result) {
+  if (!result) { toast(t("toastNoResult"), "error"); return; }
+
+  try {
+    let blob;
+    if (result.src.startsWith("data:")) {
+      blob = await urlToBlob(result.src);
+    } else {
+      // Try a CORS fetch first; if it fails, fall back to a canvas export.
+      try {
+        blob = await urlToBlob(result.src);
+      } catch (e) {
+        const img = await loadImageElement(result.src, true);
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth || img.width;
+        canvas.height = img.naturalHeight || img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        blob = await canvasToBlob(canvas, "image/png");
+      }
+    }
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mkgt-studio-profile-" + Date.now() + ".png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    // Revoke after a short delay so the browser has time to start the download.
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+    toast(t("toastDownloaded"), "success");
+  } catch (e) {
+    console.error("Download failed:", e);
+    toast(t("errDownload"), "error");
+  }
+}
+
+/* -------------------------------------------------------------------------
+   AI CREATIVE STUDIO — multi-output workspace
+   ------------------------------------------------------------------------- */
+let aiCurrentOutput = null;
+let aiHistory = [];
+const AI_HISTORY_KEY = "mkgt.ai.history.v1";
+function aiSetStatus(message, status) {
+  const el = $("#aiStatusText"); const badge = $("#aiOutputStatus");
+  if (el) el.textContent = message;
+  if (badge) { badge.textContent = status || "READY"; badge.className = "badge"; }
+}
+function aiTypeChanged() {
+  const type = $("#aiType")?.value || "image";
+  const imageOpts = $("#aiImageOptions"); const videoOpts = $("#aiVideoOptions");
+  if (imageOpts) imageOpts.hidden = type !== "image";
+  if (videoOpts) videoOpts.hidden = type !== "video";
+  const help = $("#aiProviderHelp");
+  if (help) help.textContent = type === "image" ? "انتخاب خودکار از Puter برای تولید تصویر استفاده می‌کند؛ می‌توانی Gateway اختصاصی هم وصل کنی." : type === "text" || type === "code" ? "انتخاب خودکار از Puter برای متن و کدنویسی استفاده می‌کند." : "برای این نوع خروجی، انتخاب خودکار از Puter استفاده می‌کند؛ برای موسیقی واقعی یا سه‌بعدی Gateway اختصاصی لازم است.";
+  aiProviderChanged();
+}
+function aiProviderChanged() {
+  const provider = $("#aiProvider")?.value || "auto";
+  const type = $("#aiType")?.value || "image";
+  const needsGateway = !["image","text","code","video","music"].includes(type);
+  const el = $("#aiCustomConfig"); if (el) el.hidden = !(provider === "custom" || (provider === "auto" && needsGateway));
+}
+function aiRenderHistory() {
+  const root = $("#aiHistoryList"); if (!root) return;
+  if (!aiHistory.length) { root.innerHTML = '<span class="help">هنوز خروجی جدیدی ثبت نشده است.</span>'; return; }
+  root.innerHTML = aiHistory.slice(0,8).map(item => '<div class="ai-history-item"><div><strong>'+escapeHtml(item.typeLabel)+'</strong><br><small>'+escapeHtml(item.prompt.slice(0,90))+'</small></div><small>'+escapeHtml(item.date)+'</small></div>').join("");
+}
+function aiSaveHistory(type, prompt, resultType) {
+  aiHistory.unshift({type, typeLabel:({image:"تصویر",video:"ویدئو",text:"متن",code:"کدنویسی",music:"موسیقی", "3d":"سه‌بعدی"})[type] || type,prompt,resultType,date:new Date().toLocaleString()});
+  aiHistory = aiHistory.slice(0,30);
+  try { localStorage.setItem(AI_HISTORY_KEY, JSON.stringify(aiHistory)); } catch(e) {}
+  aiRenderHistory();
+}
+function aiShowText(text, asCode) {
+  const out = $("#aiOutput"); if (!out) return;
+  out.innerHTML = asCode ? '<pre></pre>' : '<div class="ai-generated-text" style="width:100%;white-space:pre-wrap;line-height:1.9;padding:14px;max-height:600px;overflow:auto"></div>';
+  const target = out.querySelector(asCode ? "pre" : ".ai-generated-text"); target.textContent = text;
+  aiCurrentOutput = {kind:"text",text};
+  $("#aiOutputActions").hidden = false;
+  $("#aiDownloadBtn").hidden = false; $("#aiCopyBtn").hidden = false;
+}
+async function aiGenerateWithPuter(type, prompt) {
+  if (!window.puter || !window.puter.ai) {
+    throw new Error("کتابخانه Puter بارگذاری نشده است. سایت را با اینترنت باز کن و یک‌بار صفحه را تازه‌سازی کن.");
+  }
+
+  const out = $("#aiOutput");
+  const refFile = $("#aiReference")?.files?.[0];
+
+  async function showMedia(kind, media) {
+    let src = typeof media === "string" ? media : (media && (media.src || media.currentSrc || ""));
+    if (!src && media instanceof Blob) src = URL.createObjectURL(media);
+    if (!src && media && media.data instanceof Blob) src = URL.createObjectURL(media.data);
+    if (!src) {
+      let details = "";
+      try { details = JSON.stringify(media).slice(0, 400); } catch (_) {}
+      throw new Error("سرویس خروجی قابل نمایش برنگرداند." + (details ? " جزئیات: " + details : ""));
+    }
+    out.innerHTML = "";
+    let node;
+    if (kind === "image") {
+      node = document.createElement("img");
+      node.alt = "AI generated image";
+      node.src = src;
+    } else if (kind === "video") {
+      node = document.createElement("video");
+      node.controls = true;
+      node.playsInline = true;
+      node.preload = "metadata";
+      node.src = src;
+    } else {
+      node = document.createElement("audio");
+      node.controls = true;
+      node.preload = "metadata";
+      node.src = src;
+    }
+    node.style.maxWidth = "100%";
+    node.style.maxHeight = "600px";
+    node.style.borderRadius = "10px";
+    out.appendChild(node);
+    if (kind === "image") {
+      await new Promise((resolve, reject) => {
+        if (node.complete && node.naturalWidth > 0) return resolve();
+        node.onload = () => resolve();
+        node.onerror = () => reject(new Error("تصویر تولید شد اما مرورگر نتوانست آن را بارگذاری کند. دوباره تلاش کن."));
+      });
+    }
+    aiCurrentOutput = {kind, src};
+    $("#aiOutputActions").hidden = false;
+    $("#aiDownloadBtn").hidden = false;
+    $("#aiCopyBtn").hidden = true;
+    return src;
+  }
+
+  if (type === "image") {
+    if (typeof window.puter.ai.txt2img !== "function") {
+      throw new Error("قابلیت ساخت تصویر در Puter در دسترس نیست. نسخه SDK را بررسی کن.");
+    }
+    const ratio = $("#aiRatio")?.value || "1:1";
+    const imageOptions = {
+      model: "gpt-image-2.6-flare",
+      aspect_ratio: ratio,
+      quality: $("#aiQuality")?.value === "high" ? "high" : "low"
+    };
+    if (refFile && refFile.type.startsWith("image/")) imageOptions.input_image = refFile;
+    const generated = await window.puter.ai.txt2img(prompt, imageOptions);
+    await showMedia("image", generated);
+    return "تصویر تولید شد.";
+  }
+
+  if (type === "video") {
+    if (typeof window.puter.ai.txt2vid !== "function") {
+      throw new Error("قابلیت ساخت ویدئو در SDK فعلی Puter موجود نیست. صفحه را تازه‌سازی کن.");
+    }
+    const seconds = Number($("#aiDuration")?.value || 5);
+    const ratio = $("#aiVideoRatio")?.value || "16:9";
+    const videoOptions = {seconds};
+    if (ratio === "9:16") { videoOptions.width = 720; videoOptions.height = 1280; }
+    else if (ratio === "1:1") { videoOptions.width = 720; videoOptions.height = 720; }
+    else { videoOptions.width = 1280; videoOptions.height = 720; }
+    if (refFile && refFile.type.startsWith("image/")) videoOptions.input_reference = refFile;
+    const generated = await window.puter.ai.txt2vid(prompt, videoOptions);
+    showMedia("video", generated);
+    return "ویدئو تولید شد. ممکن است ساخت آن چند دقیقه طول بکشد.";
+  }
+
+  if (type === "music") {
+    if (typeof window.puter.ai.txt2speech !== "function") {
+      throw new Error("قابلیت تبدیل متن به گفتار در SDK فعلی Puter موجود نیست.");
+    }
+    const generated = await window.puter.ai.txt2speech(prompt);
+    showMedia("audio", generated);
+    return "فایل گفتار تولید شد. توجه: این سرویس گفتار می‌سازد، نه آهنگ موسیقی.";
+  }
+
+  if (type === "text" || type === "code") {
+    if (typeof window.puter.ai.chat !== "function") {
+      throw new Error("قابلیت گفت‌وگوی هوش مصنوعی در Puter در دسترس نیست.");
+    }
+    const instruction = type === "code"
+      ? "Act as a senior software engineer. Return complete, runnable code and concise setup instructions. User request:\n"
+      : "Answer helpfully and accurately in the user's language. User request:\n";
+    const response = await window.puter.ai.chat(instruction + prompt);
+    let result = "";
+    if (typeof response === "string") result = response;
+    else if (response?.message?.content) {
+      result = Array.isArray(response.message.content)
+        ? response.message.content.map(x => x.text || "").join("\n")
+        : String(response.message.content);
+    } else result = JSON.stringify(response, null, 2);
+    aiShowText(result, type === "code");
+    return "خروجی متنی آماده شد.";
+  }
+
+  throw new Error("این نوع خروجی در Puter پشتیبانی نمی‌شود؛ برای مدل سه‌بعدی یا تولید موسیقی واقعی باید Gateway اختصاصی متصل شود.");
+}
+async function aiGenerateCustom(type, prompt) {
+  const endpoint = ($( "#aiEndpoint").value || "").trim();
+  const key = ($( "#aiApiKey").value || "").trim();
+  if (!endpoint) throw new Error("ابتدا آدرس API یا Proxy را وارد کن.");
+  const headers = {"Content-Type":"application/json"}; if (key) headers.Authorization = "Bearer " + key;
+  const payload = {task:type,prompt,aspect_ratio:type === "video" ? $("#aiVideoRatio").value : $("#aiRatio").value,duration_seconds:type === "video" ? Number($("#aiDuration").value) : undefined,quality:$("#aiQuality")?.value || "standard"};
+  const file = $("#aiReference")?.files?.[0];
+  if (file) { payload.reference_file_name = file.name; payload.reference_mime_type = file.type; payload.reference_base64 = await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(",")[1]);r.onerror=reject;r.readAsDataURL(file);}); }
+  const res = await fetch(endpoint,{method:"POST",headers,body:JSON.stringify(payload)});
+  const data = await res.json().catch(()=>({}));
+  if (!res.ok) throw new Error(data.error || data.message || ("API error: "+res.status));
+  const url = data.url || data.output_url || data.video_url || data.image_url || data.audio_url;
+  const text = data.text || data.result || data.content;
+  if (url) {
+    const out = $("#aiOutput"); out.innerHTML = "";
+    const tag = type === "video" ? "video" : type === "music" ? "audio" : type === "3d" ? "a" : "img";
+    let node;
+    if (tag === "a") { node=document.createElement("a"); node.href=url; node.target="_blank"; node.rel="noopener"; node.textContent="مشاهده / دریافت فایل سه‌بعدی"; }
+    else { node=document.createElement(tag); node.src=url; if (tag === "video" || tag === "audio") node.controls=true; if (tag === "img") node.alt="AI output"; }
+    out.appendChild(node); aiCurrentOutput={kind:type,src:url}; $("#aiOutputActions").hidden=false; $("#aiDownloadBtn").hidden=false; $("#aiCopyBtn").hidden=true;
+    return "خروجی از سرویس اختصاصی دریافت شد.";
+  }
+  if (text) { aiShowText(String(text), type === "code"); return "پاسخ سرویس دریافت شد."; }
+  throw new Error("API پاسخ داد اما فیلد خروجی قابل‌نمایشی مثل url یا text نداشت. قرارداد API باید url / video_url / image_url / audio_url یا text برگرداند.");
+}
+async function runAiStudio() {
+  const type = $("#aiType").value; const prompt = ($("#aiPrompt").value || "").trim();
+  if (!prompt) { toast("اول پرامپتت رو بنویس.","error"); return; }
+  const provider = $("#aiProvider").value; const btn = $("#aiGenerateBtn");
+  btn.disabled = true; btn.textContent = "در حال تولید..."; aiSetStatus("در حال ارسال درخواست به سرویس هوش مصنوعی...","WORKING");
+  $("#aiOutput").innerHTML = '<div class="ai-empty"><div class="loader-emblem">MK</div><strong>در حال ساخت خروجی...</strong><span>ممکن است چند لحظه طول بکشد.</span></div>';
+  try {
+    const puterSupported = ["image","text","code","video","music"].includes(type);
+    const useGateway = provider === "custom" || (provider === "auto" && !puterSupported);
+    const message = useGateway ? await aiGenerateCustom(type,prompt) : await aiGenerateWithPuter(type,prompt);
+    aiSetStatus(message,"DONE"); aiSaveHistory(type,prompt,aiCurrentOutput?.kind || "text");
+  } catch(err) {
+    console.error("AI Studio error",err);
+    const errorMessage = (err && typeof err === "object" && err.message) ? err.message : String(err || "خطای ناشناخته");
+    $("#aiOutput").innerHTML='<div class="ai-empty"><div class="ai-empty-icon">⚠</div><strong>تولید انجام نشد</strong><span></span></div>';
+    $("#aiOutput").querySelector("span").textContent = errorMessage;
+    $("#aiOutputActions").hidden = true; aiSetStatus(errorMessage,"ERROR");
+  } finally { btn.disabled=false; btn.innerHTML="✦ شروع تولید"; }
+}
+function aiDownload() {
+  if (!aiCurrentOutput) return;
+  if (aiCurrentOutput.kind === "text") {
+    const blob = new Blob([aiCurrentOutput.text],{type:"text/plain;charset=utf-8"});
+    const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="mkgt-ai-output.txt"; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1500); return;
+  }
+  const a=document.createElement("a"); a.href=aiCurrentOutput.src; a.download="mkgt-ai-output"; a.target="_blank"; a.rel="noopener"; a.click();
+}
+
+/* -------------------------------------------------------------------------
+   Event bindings
+   ------------------------------------------------------------------------- */
+function bindEvents() {
+  const aiType = $("#aiType"); if (aiType) aiType.addEventListener("change", aiTypeChanged);
+  const aiProvider = $("#aiProvider"); if (aiProvider) aiProvider.addEventListener("change", aiProviderChanged);
+  const aiGenerate = $("#aiGenerateBtn"); if (aiGenerate) aiGenerate.addEventListener("click", runAiStudio);
+  const aiDownloadBtn = $("#aiDownloadBtn"); if (aiDownloadBtn) aiDownloadBtn.addEventListener("click", aiDownload);
+  const aiCopy = $("#aiCopyBtn"); if (aiCopy) aiCopy.addEventListener("click", async()=>{if(aiCurrentOutput?.text){await navigator.clipboard.writeText(aiCurrentOutput.text);toast("متن کپی شد.","success");}});
+  const aiFile = $("#aiReference"); if (aiFile) aiFile.addEventListener("change",()=>{$("#aiReferenceName").textContent=aiFile.files?.[0]?.name || "هنوز فایلی انتخاب نشده";});
+  const aiClear = $("#aiClearHistory"); if (aiClear) aiClear.addEventListener("click",()=>{aiHistory=[];try{localStorage.removeItem(AI_HISTORY_KEY);}catch(e){}aiRenderHistory();});
+  try { aiHistory = JSON.parse(localStorage.getItem(AI_HISTORY_KEY) || "[]"); if(!Array.isArray(aiHistory)) aiHistory=[]; } catch(e) { aiHistory=[]; }
+  aiRenderHistory(); aiTypeChanged(); aiProviderChanged();
+  // Navigation
+  $$(".nav-item").forEach(btn => {
+    btn.addEventListener("click", () => navigate(btn.getAttribute("data-nav")));
+  });
+
+  // Topbar
+  const langBtn = $("#langBtn");
+  if (langBtn) langBtn.addEventListener("click", () => {
+    state.lang = state.lang === "fa" ? "en" : "fa";
+    persistLang();
+    applyLang();
+  });
+
+  const newProjectBtn = $("#newProjectBtn");
+  if (newProjectBtn) newProjectBtn.addEventListener("click", () => {
+    state.results = [];
+    state.selectedResultId = null;
+    state.prompt.user = null;
+    renderResults();
+    navigate("studio");
+    showGenAlert("", "");
+  });
+
+  // Dashboard buttons
+  const heroStart = $("#heroStartBtn");
+  if (heroStart) heroStart.addEventListener("click", () => navigate("studio"));
+  const heroSettings = $("#heroSettingsBtn");
+  if (heroSettings) heroSettings.addEventListener("click", () => navigate("settings"));
+
+  const quickUpload = $("#quickUpload");
+  if (quickUpload) quickUpload.addEventListener("click", () => {
+    navigate("studio");
+    const input = $("#fileInput");
+    if (input) input.click();
+  });
+  const quickStyle = $("#quickStyle");
+  if (quickStyle) quickStyle.addEventListener("click", () => navigate("studio"));
+  const quickGenerate = $("#quickGenerate");
+  if (quickGenerate) quickGenerate.addEventListener("click", () => navigate("studio"));
+
+  // Dropzone / file input
+  const dropzone = $("#dropzone");
+  const fileInput = $("#fileInput");
+
+  const openFilePicker = () => { if (fileInput) fileInput.click(); };
+  const browseBtn = $("#browseBtn");
+  if (browseBtn) browseBtn.addEventListener("click", (e) => { e.stopPropagation(); openFilePicker(); });
+  const replaceBtn = $("#replaceBtn");
+  if (replaceBtn) replaceBtn.addEventListener("click", openFilePicker);
+  const removeBtn = $("#removeBtn");
+  if (removeBtn) removeBtn.addEventListener("click", removeSkin);
+
+  if (fileInput) {
+    fileInput.addEventListener("change", () => {
+      const f = fileInput.files && fileInput.files[0];
+      if (f) handleFile(f);
+      fileInput.value = "";
+    });
+  }
+
+  if (dropzone) {
+    ["dragenter", "dragover"].forEach(ev => {
+      dropzone.addEventListener(ev, (e) => {
+        e.preventDefault(); e.stopPropagation();
+        dropzone.classList.add("drag");
+      });
+    });
+    ["dragleave", "dragend"].forEach(ev => {
+      dropzone.addEventListener(ev, (e) => {
+        e.preventDefault(); e.stopPropagation();
+        dropzone.classList.remove("drag");
+      });
+    });
+    dropzone.addEventListener("drop", (e) => {
+      e.preventDefault(); e.stopPropagation();
+      dropzone.classList.remove("drag");
+      const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) handleFile(f);
+    });
+  }
+
+  // Preview controls
+  const zoomIn = $("#zoomInBtn");
+  const zoomOut = $("#zoomOutBtn");
+  const rotate = $("#rotateBtn");
+  const resetPreview = $("#resetPreviewBtn");
+  const previewCanvas = $("#previewCanvas");
+  let previewZoom = 1;
+  let previewRotation = 0;
+
+  function applyPreviewTransform() {
+    if (!previewCanvas) return;
+    previewCanvas.style.transform = "scale(" + previewZoom + ") rotate(" + previewRotation + "deg)";
+  }
+
+  if (zoomIn) zoomIn.addEventListener("click", () => {
+    previewZoom = clamp(previewZoom + 0.2, 0.6, 2.6);
+    applyPreviewTransform();
+  });
+  if (zoomOut) zoomOut.addEventListener("click", () => {
+    previewZoom = clamp(previewZoom - 0.2, 0.6, 2.6);
+    applyPreviewTransform();
+  });
+  if (rotate) rotate.addEventListener("click", () => {
+    previewRotation = (previewRotation + 90) % 360;
+    applyPreviewTransform();
+  });
+  if (resetPreview) resetPreview.addEventListener("click", () => {
+    previewZoom = 1;
+    previewRotation = 0;
+    applyPreviewTransform();
+  });
+
+  // Option selects
+  const bindSelect = (sel, key) => {
+    const el = $(sel);
+    if (!el) return;
+    el.addEventListener("change", () => {
+      state.options[key] = key === "count" ? parseInt(el.value, 10) : el.value;
+      persistOptions();
+      renderChips();
+      refreshPromptFromOptions();
+    });
+  };
+  bindSelect("#select-lighting", "lighting");
+  bindSelect("#select-pose", "pose");
+  bindSelect("#select-quality", "quality");
+  bindSelect("#select-count", "count");
+
+  const strength = $("#range-strength");
+  if (strength) strength.addEventListener("input", () => {
+    state.options.strength = parseFloat(strength.value);
+    const v = $("#strengthVal");
+    if (v) v.textContent = state.options.strength.toFixed(2);
+    persistOptions();
+  });
+  const styleStrength = $("#range-styleStrength");
+  if (styleStrength) styleStrength.addEventListener("input", () => {
+    state.options.styleStrength = parseFloat(styleStrength.value);
+    const v = $("#styleStrengthVal");
+    if (v) v.textContent = state.options.styleStrength.toFixed(2);
+    persistOptions();
+  });
+
+  const customBg = $("#customBgInput");
+  if (customBg) customBg.addEventListener("input", () => {
+    state.options.customBg = customBg.value;
+    persistOptions();
+  });
+
+  const promptArea = $("#promptArea");
+  if (promptArea) promptArea.addEventListener("input", () => {
+    state.prompt.user = promptArea.value;
+  });
+
+  const negativeArea = $("#negativeArea");
+  if (negativeArea) negativeArea.addEventListener("input", () => {
+    state.prompt.negative = negativeArea.value;
+  });
+
+  const resetPromptBtn = $("#resetPromptBtn");
+  if (resetPromptBtn) resetPromptBtn.addEventListener("click", () => {
+    refreshPromptFromOptions();
+    toast(t("toastPromptReset"), "info");
+  });
+
+  const copyPromptBtn = $("#copyPromptBtn");
+  if (copyPromptBtn) copyPromptBtn.addEventListener("click", async () => {
+    const text = getEffectivePrompt();
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      toast(t("toastCopied"), "success");
+    } catch (e) {
+      toast(t("toastCopyFailed"), "error");
+    }
+  });
+
+  // Generate
+  const generateBtn = $("#generateBtn");
+  if (generateBtn) generateBtn.addEventListener("click", generate);
+
+  // Compare slider
+  const compareSlider = $("#compareSlider");
+  if (compareSlider) compareSlider.addEventListener("input", () => {
+    const frame = $("#compareFrame");
+    if (frame) frame.style.setProperty("--split", compareSlider.value + "%");
+  });
+
+  // Result buttons
+  const openEditorBtn = $("#openEditorBtn");
+  if (openEditorBtn) openEditorBtn.addEventListener("click", openEditor);
+
+  const regenBtn = $("#regenBtn");
+  if (regenBtn) regenBtn.addEventListener("click", generate);
+
+  const downloadBtn = $("#downloadBtn");
+  if (downloadBtn) downloadBtn.addEventListener("click", () => {
+    downloadResult(getSelectedResult());
+  });
+
+  const deleteResultBtn = $("#deleteResultBtn");
+  if (deleteResultBtn) deleteResultBtn.addEventListener("click", () => {
+    const r = getSelectedResult();
+    if (!r) { toast(t("toastNoResult"), "error"); return; }
+    state.results = state.results.filter(x => x.id !== r.id);
+    state.selectedResultId = state.results.length ? state.results[0].id : null;
+    renderResults();
+    toast(t("toastDeleted"), "info");
+  });
+
+  // History
+  const clearHistoryBtn = $("#clearHistoryBtn");
+  if (clearHistoryBtn) clearHistoryBtn.addEventListener("click", () => {
+    if (!state.projects.length) return;
+    if (!confirm(state.lang === "fa" ? "همه پروژه‌ها حذف شوند؟" : "Delete all saved projects?")) return;
+    state.projects = [];
+    persistProjects();
+    renderHistoryList();
+    renderRecentProjects();
+    toast(t("toastHistoryCleared"), "info");
+  });
+
+  // Settings view
+  const openSettingsBtn = $("#openSettingsBtn");
+  if (openSettingsBtn) openSettingsBtn.addEventListener("click", () => navigate("settings"));
+
+  const cfgProvider = $("#cfgProvider");
+  if (cfgProvider) cfgProvider.addEventListener("change", () => {
+    const defs = PROVIDER_DEFAULTS[cfgProvider.value];
+    const ep = $("#cfgEndpoint");
+    const ky = $("#cfgKey");
+    const md = $("#cfgModel");
+    const puterMode = cfgProvider.value === "puter";
+    if (defs) {
+      if (ep) ep.value = defs.endpoint;
+      if (md) md.value = defs.model;
+    }
+    if (ep && ep.parentElement) ep.parentElement.hidden = puterMode;
+    if (ky && ky.parentElement) ky.parentElement.hidden = puterMode;
+  });
+
+  const settingsSaveBtn = $("#settingsSaveBtn");
+  if (settingsSaveBtn) settingsSaveBtn.addEventListener("click", () => {
+    saveSettings();
+    navigate("dashboard");
+  });
+
+  const settingsCancelBtn = $("#settingsCancelBtn");
+  if (settingsCancelBtn) settingsCancelBtn.addEventListener("click", () => {
+    fillSettingsForm();
+    navigate("dashboard");
+  });
+
+  const clearLocalBtn = $("#clearLocalBtn");
+  if (clearLocalBtn) clearLocalBtn.addEventListener("click", () => {
+    if (!confirm(state.lang === "fa" ? "همه داده‌های محلی پاک شوند؟" : "Clear all local data?")) return;
+    try {
+      localStorage.removeItem(STORAGE_KEYS.config);
+      localStorage.removeItem(STORAGE_KEYS.options);
+      localStorage.removeItem(STORAGE_KEYS.projects);
+      localStorage.removeItem(STORAGE_KEYS.lang);
+    } catch (e) {}
+    state.projects = [];
+    state.results = [];
+    state.selectedResultId = null;
+    state.prompt.user = null;
+    renderResults();
+    renderHistoryList();
+    renderRecentProjects();
+    fillSettingsForm();
+    toast(t("toastDataCleared"), "success");
+  });
+
+  const resetSettingsBtn = $("#resetSettingsBtn");
+  if (resetSettingsBtn) resetSettingsBtn.addEventListener("click", () => {
+    state.options = {
+      style: "japaneseAnime",
+      background: "darkNavy",
+      customBg: "",
+      lighting: "naturalStudio",
+      pose: "headShoulders",
+      quality: "1024",
+      count: 1,
+      strength: 0.85,
+      styleStrength: 0.7
+    };
+    state.config = {
+      provider: "puter",
+      endpoint: PROVIDER_DEFAULTS.puter.endpoint,
+      key: "",
+      model: PROVIDER_DEFAULTS.puter.model,
+      timeout: 180,
+      rememberKey: false
+    };
+    persistOptions();
+    persistConfig();
+    renderChips();
+    renderSelects();
+    fillSettingsForm();
+    toast(t("toastReset"), "info");
+  });
+
+  // Editor modal
+  const editorModal = $("#editorModal");
+  if (editorModal) {
+    $$('[data-close="editorModal"]').forEach(btn => {
+      btn.addEventListener("click", () => editorModal.classList.remove("open"));
+    });
+    editorModal.addEventListener("click", (e) => {
+      if (e.target === editorModal) editorModal.classList.remove("open");
+    });
+  }
+
+  const editorCompare = $("#editorCompare");
+  if (editorCompare) editorCompare.addEventListener("input", () => {
+    editorState.split = parseInt(editorCompare.value, 10);
+    applyEditorCompare();
+  });
+
+  const editorZoom = $("#editorZoom");
+  if (editorZoom) editorZoom.addEventListener("input", () => {
+    editorState.zoom = parseInt(editorZoom.value, 10);
+    applyEditorTransform();
+  });
+
+  const editorDownload = $("#editorDownloadBtn");
+  if (editorDownload) editorDownload.addEventListener("click", () => {
+    downloadResult(getSelectedResult());
+  });
+
+  // Close any modal on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      $$(".modal.open").forEach(m => m.classList.remove("open"));
+    }
+  });
+}
+
+/* -------------------------------------------------------------------------
+   Bootstrap
+   ------------------------------------------------------------------------- */
+const MKGT_LOADER_STARTED = Date.now();
+function hideStartupLoader() {
+  const loader = document.getElementById("startupLoader");
+  const remaining = Math.max(0, 5200 - (Date.now() - MKGT_LOADER_STARTED));
+  window.setTimeout(() => {
+    if (loader) loader.classList.add("is-hidden");
+  }, remaining);
+}
+
+function bootstrap() {
+  loadPersisted();
+  applyTheme();
+  bindEvents();
+  applyLang();
+  renderChips();
+  renderSelects();
+  renderResults();
+  renderRecentProjects();
+  renderHistoryList();
+  fillSettingsForm();
+  refreshProviderSummary();
+  navigate("dashboard");
+  setGeneratingUI(false);
+  hideStartupLoader();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", bootstrap);
+} else {
+  bootstrap();
+}
+</script>
+</body>
+</html>
